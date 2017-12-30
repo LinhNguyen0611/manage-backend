@@ -13,7 +13,7 @@ The environment is set up at `src/main/resources`
 **Available environments:**
 
 - `local`: Local development environment
-- `ci`: FPT CI development environment
+- `ci`: CI development environment
 - `staging`: Staging environment
 
 ## Setting Things Up
