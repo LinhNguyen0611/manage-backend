@@ -1,0 +1,53 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	providedRuntime
+}
+
+dependencies {
+	// Core web repositories
+	compile('org.springframework.boot:spring-boot-starter-web')
+	// Cor RESTful API
+	compile("org.springframework.boot:spring-boot-starter-data-rest")
+	// JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	// Connection to MySQL. If using another db, find it here: https://mvnrepository.com
+	runtime('mysql:mysql-connector-java')
+
+    //swagger
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+    //Logging
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.21'
+
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+configurations.all {
+    exclude group: 'ch.qos.logback', module: 'logback-classic'
+    exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+}
