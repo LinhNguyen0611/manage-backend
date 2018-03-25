@@ -2,12 +2,12 @@ package com.example.demo.controllers;
 
 import com.example.demo.constants.Const;
 import com.example.demo.constants.URL;
-import com.example.demo.entities.Product;
+import com.example.demo.entities.Item;
 import com.example.demo.exceptions.ApplicationException;
-import com.example.demo.models.ProductModel;
-import com.example.demo.responses.ProductResponse;
+import com.example.demo.models.ItemModel;
+import com.example.demo.responses.ItemResponse;
 import com.example.demo.responses.ResponseModel;
-import com.example.demo.services.ProductService;
+import com.example.demo.services.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,61 +17,65 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * The class Product controller.
+ * The class Item controller.
  */
 @RestController
 @RequestMapping(URL.PRODUCT_CONTROLLER)
-public class ProductController {
+public class ItemController {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
+    private final ItemService itemService;
+
     @Autowired
-    private ProductService productService;
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
-    public ResponseModel<ProductResponse> saveProduct(@RequestBody @Valid ProductModel productModel) {
-        ResponseModel<ProductResponse> response = new ResponseModel<>();
+    public ResponseModel<Item> saveItem(@RequestBody @Valid ItemModel itemModel) {
+        ResponseModel<Item> response = new ResponseModel<>();
         try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveProduct ");
-            //Save product
-            Product product = productService.saveData(productModel.toEntity());
-            response.setData(new ProductResponse(product));
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveItem ");
+            //Save item
+            Item item = itemService.saveData(itemModel.toEntity());
+            response.setData(item);
             return response;
         } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " saveProduct : {}", ae.getMessage());
+            LOG.error(Const.LOGGING_ERROR + " saveItem : {}", ae.getMessage());
             response.buildError(ae);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " saveProduct ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " saveItem ");
         }
     }
 
     @RequestMapping(value = URL.GET_ACTION, method = RequestMethod.GET)
-    public ResponseModel<ProductResponse> getProduct(@PathVariable(value = Const.PATH_ID) Integer id) {
-        ResponseModel<ProductResponse> response = new ResponseModel<>();
+    public ResponseModel<Item> getItem(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<Item> response = new ResponseModel<>();
         try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getProduct ");
-            //Get product
-            Product product = productService.getById(id);
-            response.setData(new ProductResponse(product));
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getItem ");
+            //Get item
+            Item item = itemService.getById(id);
+            response.setData(item);
             return response;
         } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " getProduct : {}", ae.getMessage());
+            LOG.error(Const.LOGGING_ERROR + " getItem : {}", ae.getMessage());
             response.buildError(ae);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " getProduct ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getItem ");
         }
     }
 
     @RequestMapping(value = URL.LIST_PAGING, method = RequestMethod.GET)
-    public ResponseModel<Page<ProductResponse>> listAll(
+    public ResponseModel<Page<Item>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<ProductResponse>> response = new ResponseModel<>();
+        ResponseModel<Page<Item>> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
             //List all
-            response.setData(productService.listAll(page, size));
+            response.setData(itemService.listAll(page, size));
             return response;
         } catch (ApplicationException ex) {
             LOG.error(Const.LOGGING_ERROR + "listByName: {}", ex.getMessage());

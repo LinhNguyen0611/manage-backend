@@ -25,7 +25,7 @@ nbdist/
 .nb-gradle/
 ### Gradle template
 
-# Ignore Gradle GUI configs
+# Ignore Gradle GUI config
 gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)

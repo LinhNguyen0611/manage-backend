@@ -1,30 +1,30 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Product;
-import com.example.demo.repositories.ProductRepository;
-import com.example.demo.responses.ProductResponse;
+import com.example.demo.entities.Item;
+import com.example.demo.repositories.ItemRepository;
+import com.example.demo.responses.ItemResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService extends BaseService<ProductRepository, Product, Integer> {
+public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     /**
      * Controller
      *
      * @param repository repository
      */
     @Autowired
-    ProductService(ProductRepository repository) {
+    ItemService(ItemRepository repository) {
         super(repository);
     }
 
-    public Page<ProductResponse> listAll(Integer page, Integer size) {
+    public Page<Item> listAll(Integer page, Integer size) {
         PageRequest pageRequest = new PageRequest(page, size);
         //List all
-        Page<Product> products = findAll(pageRequest);
-        return products.map(ProductResponse::new);
+        Page<Item> items = findAll(pageRequest);
+        return items;
     }
 
     //CRUD method is provided by Base Service. Add another method as needed

@@ -41,6 +41,8 @@ To get a list of available tasks for a project, run `./gradlew tasks`.
 
 Build project: `./gradlew build`
 
+Prepare the war package: `./gradlew assemble`
+
 ### Start server
 
 To start a server, run the command:
@@ -51,7 +53,7 @@ $ ./gradlew bootRun
 
 ### Getting API documentation
 
-Access API-doc with this URL: http://localhost:8080/swagger-ui.html
+Access API-doc with this URL: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ## Coding guideline
 

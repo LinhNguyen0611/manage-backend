@@ -29,5 +29,5 @@ public interface URL {
     /**
      * The constant PRODUCT_CONTROLLER.
      */
-    String PRODUCT_CONTROLLER= "product";
+    String PRODUCT_CONTROLLER= "item";
 }
