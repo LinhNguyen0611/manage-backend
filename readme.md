@@ -13,8 +13,7 @@ The environment is set up at `src/main/resources`
 **Available environments:**
 
 - `local`: Local development environment
-- `ci`: CI development environment
-- `staging`: Staging environment
+- `ci`: CI (continuous integration) development environment
 
 ## Setting Things Up
 
@@ -39,10 +38,8 @@ spring.datasource.password=root
 ### Running Tasks
 
 To get a list of available tasks for a project, run `./gradlew tasks`. 
-For example, `./gradlew build`
 
-You can call a task by its fully qualified Gradle path (usually a good idea), such as `./gradlew level1:level2:levelN:taskName` or by just the task's name, such as `./gradlew taskName`. 
-In the latter, all tasks of `taskName` in the Gradle project will be executed.
+Build project: `./gradlew build`
 
 ### Start server
 
