@@ -17,20 +17,50 @@ The environment is set up at `src/main/resources`
 
 ## Setting Things Up
 
-### Create db
+### Select your favorite IDE
 
-This project is using MySQL for db
+- [IntelliJ Community version ](https://www.jetbrains.com/idea/download/#section=windows)
+- [Visual Code](https://code.visualstudio.com/Download)
+
+### Gear up the database
+
+In this project, we will be using MySQL for database queries. Here are steps to get it up working
+
+- Download __MySQL Community Server__ from [here](https://dev.mysql.com/downloads/windows/installer/5.7.html)
+- Then, download __MySQL Workbench__ [here](https://dev.mysql.com/downloads/workbench/)
+
+After downloading and installing above programs, you will go through some simple set-ups.
+1. Open __MySQL Community Installer__ and add __MySQL Server__ (if not installed yet)
+2. Go thru some configuration process (remember the password)
+3. Open Workbench and create a new connection
+4. Put  `root` in the user name and enter password that you created earlier.
+5. Press `Test connection`. You will get the dialog confirming your success.  
+
+ Make sure your database connect is working properly, or else, try the following "rememdies"
+
+- Go the `Services Tab` (found in Task Manager or simply search for it), find MySQL service and hit `start`
+- Try the [following](https://stackoverflow.com/questions/25777943/failed-to-connect-to-mysql-at-127-0-0-13306-with-user-root-access-denied-for-us) link if the problem is not resovled
+
+#### Create a new database
+
+In this step, we will create a new database that we will use later. In MySQL, the word `database` and `scheme` are interchangeable. 
 
 Create new MySQL schema with this SQL command:
 ```sql
-CREATE SCHEMA `new_schema` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA `[name-of-the-scheme]` DEFAULT CHARACTER SET utf8 ;
 ```
 
-### Change connection setting
+For our project, we will create a `mobile-store` database. so
+```sql
+CREATE SCHEMA `mobile-store` DEFAULT CHARACTER SET utf8 ;
+```
 
-File: `resources/application-env.properties`
+#### Change connection setting
+
+1. Go back to your project folder and open up the **application-env** file, found in: `your-project-dir/resources/` folder. (or create one if you haven't found any)
+2. Then add the following properties
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/demo_db
+spring.datasource.url=jdbc:mysql://localhost:3306/mobile-store
 spring.datasource.username=root
 spring.datasource.password=root
 ```
