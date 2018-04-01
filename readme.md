@@ -64,6 +64,12 @@ spring.datasource.url=jdbc:mysql://localhost:3306/mobile-store
 spring.datasource.username=root
 spring.datasource.password=root
 ```
+3. Don't commit `application.properties` and `application-local.properties` to avoid conflict.
+To do so, run the command:
+```bash
+git update-index --assume-unchanged src\main\resources\application-local.properties
+git update-index --assume-unchanged src\main\resources\application.properties
+```
 
 ### Running Tasks
 
