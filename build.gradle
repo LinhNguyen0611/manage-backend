@@ -53,7 +53,10 @@ dependencies {
 	//Security
 	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.7.RELEASE'
 	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.1.0.RELEASE'
-	testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
+	compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.2.3.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '3.2.4.RELEASE'
 }
 
 configurations.all {
