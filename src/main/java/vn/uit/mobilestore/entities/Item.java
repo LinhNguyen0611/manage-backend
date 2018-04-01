@@ -37,8 +37,10 @@ public class Item extends BaseEntity {
     @Column(name = "Status", nullable = false)
     private String status;
 
-    public Item() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "ModelID", insertable = false, updatable = false)
+    private Model parentModel;
+
 
     public Item updateItem(ItemModel itemModel) {
         this.imei = itemModel.getImei();
@@ -113,5 +115,13 @@ public class Item extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Model getParentModel() {
+        return parentModel;
+    }
+
+    public void setParentModel(Model parentModel) {
+        this.parentModel = parentModel;
     }
 }

@@ -30,4 +30,7 @@ public interface URL {
      * The constant PRODUCT_CONTROLLER.
      */
     String PRODUCT_CONTROLLER= "item";
+
+    String MODEL_CONTROLLER = "model";
 }
+
