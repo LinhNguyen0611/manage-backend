@@ -1,6 +1,7 @@
 package vn.uit.mobilestore.services;
 
 import vn.uit.mobilestore.entities.Item;
+import vn.uit.mobilestore.models.ItemModel;
 import vn.uit.mobilestore.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,16 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
         //List all
         Page<Item> items = findAll(pageRequest);
         return items;
+    }
+
+
+    public Item updateItem(Integer id, ItemModel itemModel) {
+        // Find item
+        Item item = repository.findOne(id);
+        // Update
+        item = item.updateItem(itemModel);
+        this.updateData(item);
+        return item;
     }
 
     //CRUD method is provided by Base Service. Add another method as needed

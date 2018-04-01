@@ -66,6 +66,43 @@ public class ItemController {
         }
     }
 
+    @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
+    public ResponseModel<Item> deleteItem(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<Item> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " deleteItem ");
+            //Get item
+            Item item = itemService.deleteById(id);
+            response.setData(item);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " deleteItem : {}", ae.getMessage());
+            response.buildError(ae);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " deleteItem ");
+        }
+    }
+
+    @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
+    public ResponseModel<Item> updateItem(@PathVariable(value = Const.PATH_ID) Integer id,
+                                          @RequestBody @Valid ItemModel itemModel) {
+        ResponseModel<Item> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
+            //Update ite
+            Item item = itemService.updateItem(id, itemModel);
+            response.setData(item);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " updateItem : {}", ae.getMessage());
+            response.buildError(ae);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " updateItem ");
+        }
+    }
+
     @RequestMapping(value = URL.LIST_PAGING, method = RequestMethod.GET)
     public ResponseModel<Page<Item>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,

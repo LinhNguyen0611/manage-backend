@@ -80,5 +80,12 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
         return repository.findAll(pageable);
     }
 
-
+    public E deleteById(ID id) {
+        E entity = repository.findOne(id);
+        if (entity == null) {
+            throw new ApplicationException(MessageCode.ERROR_NOT_FOUND);
+        }
+        repository.delete(entity);
+        return entity;
+    }
 }
