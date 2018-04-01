@@ -5,7 +5,6 @@ import vn.uit.mobilestore.entities.Item;
 import javax.validation.constraints.NotNull;
 
 public class ItemModel {
-    private Integer itemId;
     private String imei;
     @NotNull
     private Integer modelFromSupplierId;
@@ -21,7 +20,6 @@ public class ItemModel {
 
     public Item toEntity() {
         Item item = new Item();
-        item.setItemId(this.itemId);
         item.setImei(this.imei);
         item.setModelFromSupplierId(this.modelFromSupplierId);
         item.setModelId(this.modelId);
@@ -30,14 +28,6 @@ public class ItemModel {
         item.setSerializerNumber(this.serializerNumber);
         item.setStatus(this.status);
         return item;
-    }
-
-    public Integer getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
     }
 
     public String getImei() {

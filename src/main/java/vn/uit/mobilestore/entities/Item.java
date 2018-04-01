@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import vn.uit.mobilestore.models.ItemModel;
+
 import javax.persistence.*;
 
 /**
@@ -36,6 +38,17 @@ public class Item extends BaseEntity {
     private String status;
 
     public Item() {
+    }
+
+    public Item updateItem(ItemModel itemModel) {
+        this.imei = itemModel.getImei();
+        this.modelFromSupplierId = itemModel.getModelFromSupplierId();
+        this.modelId = itemModel.getModelId();
+        this.name = itemModel.getName();
+        this.note = itemModel.getNote();
+        this.serializerNumber = itemModel.getSerializerNumber();
+        this.status = itemModel.getStatus();
+        return this;
     }
 
     public Integer getItemId() {
