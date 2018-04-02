@@ -3,10 +3,8 @@ package vn.uit.mobilestore.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.URL;
 import vn.uit.mobilestore.entities.Item;
@@ -35,7 +33,7 @@ public class ModelController {
     }
 
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
-    public ResponseModel<Model> saveItem(@RequestBody @Valid ModelModel modelModel) {
+    public ResponseModel<Model> saveModel(@RequestBody @Valid ModelModel modelModel) {
         ResponseModel<Model> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveItem ");
@@ -49,6 +47,80 @@ public class ModelController {
             return response;
         } finally {
             LOG.info(Const.LOGGING_CONTROLLER_END + " saveItem ");
+        }
+    }
+
+    @RequestMapping(value = URL.GET_ACTION, method = RequestMethod.GET)
+    public ResponseModel<Model> getModel(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<Model> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getModel ");
+            //Get item
+            Model item = modelService.getById(id);
+            response.setData(item);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " getModel : {}", ae.getMessage());
+            response.buildError(ae);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getModel ");
+        }
+    }
+
+    @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
+    public ResponseModel<Model> deleteItem(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<Model> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " deleteModel ");
+            //Get item
+            Model item = modelService.deleteById(id);
+            response.setData(item);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " deleteModel : {}", ae.getMessage());
+            response.buildError(ae);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " deleteModel ");
+        }
+    }
+
+    @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
+    public ResponseModel<Model> updateModel(@PathVariable(value = Const.PATH_ID) Integer id,
+                                          @RequestBody @Valid ModelModel modelModel) {
+        ResponseModel<Model> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
+            //Update ite
+            Model model = modelService.updateModel(id, modelModel);
+            response.setData(model);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " updateItem : {}", ae.getMessage());
+            response.buildError(ae);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " updateItem ");
+        }
+    }
+
+    @RequestMapping(value = URL.LIST_PAGING, method = RequestMethod.GET)
+    public ResponseModel<Page<Model>> listAll(
+            @PathVariable(value = Const.PATH_SIZE) Integer size,
+            @PathVariable(value = Const.PATH_PAGE) Integer page) {
+        ResponseModel<Page<Model>> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
+            //List all
+            response.setData(modelService.listAll(page, size));
+            return response;
+        } catch (ApplicationException ex) {
+            LOG.error(Const.LOGGING_ERROR + "listByName: {}", ex.getMessage());
+            response.buildError(ex);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " listByName ");
         }
     }
 }

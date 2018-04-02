@@ -2,6 +2,8 @@ package vn.uit.mobilestore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import vn.uit.mobilestore.models.ItemModel;
+import vn.uit.mobilestore.models.ModelModel;
 
 import javax.persistence.*;
 import java.util.List;
@@ -40,6 +42,16 @@ public class Model extends BaseEntity{
     private List<Item> items;
 
     public Model() {
+    }
+
+    public Model updateModel(ModelModel modelModel) {
+        this.branchID = modelModel.getBranchID();
+        this.color = modelModel.getColor();
+        this.description = modelModel.getDescription();
+        this.name = modelModel.getName();
+        this.specification = modelModel.getSpecification();
+        this.type = modelModel.getType();
+        return this;
     }
 
     public Integer getModelID() {
