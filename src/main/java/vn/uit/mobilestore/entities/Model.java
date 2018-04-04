@@ -37,9 +37,9 @@ public class Model extends BaseEntity{
     @Column(name = "Type")
     private Integer type;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "parentModel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Item> items;
+    @ManyToOne
+    @JoinColumn(name = "BranchID", insertable = false, updatable = false)
+    private Branch parentBranch;
 
     public Model() {
     }
@@ -110,11 +110,11 @@ public class Model extends BaseEntity{
         this.type = type;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public Branch getParentBranch() {
+        return parentBranch;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setParentBranch(Branch parentBranch) {
+        this.parentBranch = parentBranch;
     }
 }
