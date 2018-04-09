@@ -31,7 +31,7 @@ public interface URL {
      */
     String PRODUCT_CONTROLLER= "item";
 
-    String USER_CONTROLLER = "user";
+    String USER_CONTROLLER = "users";
 
     String ROLE_CONTROLLER = "role";
 }

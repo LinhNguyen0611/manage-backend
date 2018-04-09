@@ -128,3 +128,23 @@ DELETE (or POST) /XXX/delete/{id}: Delete item by id
 GET /XXX/list/{size}/{page}: Get list paging of all items
 ```
 
+
+## Progress
+
+### Authentication and Authorization
+
+- Login endpoint: `/login`
+- Sign-up API: `/users/sign-up`
+
+#### Implementation
+
+- [Sign-up] check for user existence
+- [Sign-up] validate user name
+- Login payload:
+
+```
+{
+    "userName": "yourusername",
+    "password": "yourpassword"
+}
+```

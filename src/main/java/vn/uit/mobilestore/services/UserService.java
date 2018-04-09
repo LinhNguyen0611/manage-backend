@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.entities.User;
@@ -31,6 +32,15 @@ public class UserService extends BaseService<UserRepository, User, Integer> impl
 
         Page<User> users = findAll(pageRequest);
         return users;
+    }
+
+    public boolean isExist(String username)
+    {
+        if(repository.getUserByName(username) != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     @Override
