@@ -24,6 +24,9 @@ public class StockReceivingItem extends BaseEntity {
     @JoinColumn(name = "StockReceivingOrderID", insertable = false, updatable = false)
     private StockReceivingOrder stockReceivingOrder;
 
+    @OneToMany(mappedBy = "stockReceivingItem")
+    private List<Item> itemList;
+
     public StockReceivingItem() {
     }
 
@@ -65,5 +68,13 @@ public class StockReceivingItem extends BaseEntity {
 
     public void setStockReceivingOrder(StockReceivingOrder stockReceivingOrder) {
         this.stockReceivingOrder = stockReceivingOrder;
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
     }
 }

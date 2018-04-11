@@ -41,6 +41,10 @@ public class Item extends BaseEntity {
     @JoinColumn (name = "VariantID", insertable = false, updatable = false)
     private Variant variant;
 
+    @ManyToOne
+    @JoinColumn(name = "StockReceivingItemID", insertable = false, updatable = false)
+    private StockReceivingItem stockReceivingItem;
+
     public Item() {
     }
 
@@ -125,5 +129,13 @@ public class Item extends BaseEntity {
 
     public void setVariant(Variant variant) {
         this.variant = variant;
+    }
+
+    public StockReceivingItem getStockReceivingItem() {
+        return stockReceivingItem;
+    }
+
+    public void setStockReceivingItem(StockReceivingItem stockReceivingItem) {
+        this.stockReceivingItem = stockReceivingItem;
     }
 }
