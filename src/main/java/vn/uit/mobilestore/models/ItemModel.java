@@ -5,12 +5,12 @@ import vn.uit.mobilestore.entities.Item;
 import javax.validation.constraints.NotNull;
 
 public class ItemModel {
-    private String imei;
     @NotNull
-    private Integer modelFromSupplierId;
+    private Integer stockReceivingItemId;
     @NotNull
-    private Integer modelId;
+    private Integer variantId;
     private String name;
+    private String imei;
     private String note;
     private String serializerNumber;
     private String status;
@@ -20,38 +20,30 @@ public class ItemModel {
 
     public Item toEntity() {
         Item item = new Item();
-        item.setImei(this.imei);
-        item.setModelFromSupplierId(this.modelFromSupplierId);
-        item.setModelId(this.modelId);
+        item.setStockReceivingItemId(this.stockReceivingItemId);
+        item.setVariantId(this.variantId);
         item.setName(this.name);
+        item.setImei(this.imei);
         item.setNote(this.note);
         item.setSerializerNumber(this.serializerNumber);
         item.setStatus(this.status);
         return item;
     }
 
-    public String getImei() {
-        return imei;
+    public Integer getStockReceivingItemId() {
+        return stockReceivingItemId;
     }
 
-    public void setImei(String imei) {
-        this.imei = imei;
+    public void setStockReceivingItemId(Integer stockReceivingItemId) {
+        this.stockReceivingItemId = stockReceivingItemId;
     }
 
-    public Integer getModelFromSupplierId() {
-        return modelFromSupplierId;
+    public Integer getVariantId() {
+        return variantId;
     }
 
-    public void setModelFromSupplierId(Integer modelFromSupplierId) {
-        this.modelFromSupplierId = modelFromSupplierId;
-    }
-
-    public Integer getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(Integer modelId) {
-        this.modelId = modelId;
+    public void setVariantId(Integer variantId) {
+        this.variantId = variantId;
     }
 
     public String getName() {
@@ -60,6 +52,14 @@ public class ItemModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     public String getNote() {

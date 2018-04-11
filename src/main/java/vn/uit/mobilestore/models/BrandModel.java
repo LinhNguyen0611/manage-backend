@@ -1,27 +1,36 @@
 package vn.uit.mobilestore.models;
 
-import vn.uit.mobilestore.entities.Branch;
+import vn.uit.mobilestore.entities.Brand;
 import vn.uit.mobilestore.entities.Model;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by Linh Nguyen on 4/3/2018.
+ * Created by Linh Nguyen on 4/9/2018.
  */
-public class BranchModel {
+public class BrandModel {
+    @NotNull
+    private String name;
     private String country;
     private String description;
-    private String name;
 
-    public BranchModel() {
+    public BrandModel() {
     }
 
-    public Branch toEntity() {
-        Branch branch = new Branch();
+    public Brand toEntity() {
+        Brand branch = new Brand();
+        branch.setName(this.name);
         branch.setCountry(this.country);
         branch.setDescription(this.description);
-        branch.setName(this.name);
         return branch;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCountry() {
@@ -38,13 +47,5 @@ public class BranchModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

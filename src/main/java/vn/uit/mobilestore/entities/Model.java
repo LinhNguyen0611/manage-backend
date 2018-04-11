@@ -39,10 +39,14 @@ public class Model extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "BranchID", insertable = false, updatable = false)
-    private Branch parentBranch;
+    private Brand brand;
+
+    @OneToMany (mappedBy = "model")
+    private List<Variant> variantList;
 
     public Model() {
     }
+
 
     public Model updateModel(ModelModel modelModel) {
         this.branchID = modelModel.getBranchID();
@@ -110,11 +114,19 @@ public class Model extends BaseEntity{
         this.type = type;
     }
 
-    public Branch getParentBranch() {
-        return parentBranch;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setParentBranch(Branch parentBranch) {
-        this.parentBranch = parentBranch;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<Variant> getVariantList() {
+        return variantList;
+    }
+
+    public void setVariantList(List<Variant> variantList) {
+        this.variantList = variantList;
     }
 }
