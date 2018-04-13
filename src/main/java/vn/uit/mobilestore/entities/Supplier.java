@@ -1,44 +1,31 @@
 package vn.uit.mobilestore.entities;
 
+import vn.uit.mobilestore.enums.SupplierStatus;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Supplier")
+@Table(name = "suppliers")
 public class Supplier extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SupplierID", nullable = false)
-    private Integer supplierID;
 
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "Address", nullable = true)
+    @Column(nullable = true)
     private String address;
 
-    @Column(name = "Phone", nullable = true)
+    @Column(nullable = true)
     private String phone;
 
-    @Column(name = "Email", nullable = true)
+    @Column(nullable = true)
     private String email;
 
-    @Column(name = "Status", nullable = true)
-    private Integer status;
+    @Column(nullable = true)
+    private SupplierStatus supplierStatus = SupplierStatus.PROVIDING;
 
     @OneToMany(mappedBy = "supplier")
     private List<StockReceivingOrder> stockReceivingOrderList;
-
-    public Supplier() {
-    }
-
-    public Integer getSupplierID() {
-        return supplierID;
-    }
-
-    public void setSupplierID(Integer supplierID) {
-        this.supplierID = supplierID;
-    }
 
     public String getName() {
         return name;
@@ -72,12 +59,12 @@ public class Supplier extends BaseEntity {
         this.email = email;
     }
 
-    public Integer getStatus() {
-        return status;
+    public SupplierStatus getSupplierStatus() {
+        return supplierStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setSupplierStatus(SupplierStatus supplierStatus) {
+        this.supplierStatus = supplierStatus;
     }
 
     public List<StockReceivingOrder> getStockReceivingOrderList() {

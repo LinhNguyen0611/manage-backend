@@ -12,67 +12,29 @@ import java.util.List;
  * Created by Linh Nguyen on 4/1/2018.
  */
 @Entity
-@Table (name = "Model")
+@Table (name = "models")
 public class Model extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ModelID", nullable = false)
-    private Integer modelID;
 
-    @Column(name = "BranchID", nullable = false)
-    private Integer branchID;
-
-    @Column(name = "Color")
+    @Column
     private String color;
 
-    @Column(name = "Description")
+    @Column
     private String description;
 
-    @Column(name = "Name")
+    @Column
     private String name;
 
-    @Column(name = "Specification")
+    @Column
     private String specification;
 
-    @Column(name = "Type")
+    @Column
     private Integer type;
 
     @ManyToOne
-    @JoinColumn(name = "BranchID", insertable = false, updatable = false)
     private Brand brand;
 
     @OneToMany (mappedBy = "model")
     private List<Variant> variantList;
-
-    public Model() {
-    }
-
-
-    public Model updateModel(ModelModel modelModel) {
-        this.branchID = modelModel.getBranchID();
-        this.color = modelModel.getColor();
-        this.description = modelModel.getDescription();
-        this.name = modelModel.getName();
-        this.specification = modelModel.getSpecification();
-        this.type = modelModel.getType();
-        return this;
-    }
-
-    public Integer getModelID() {
-        return modelID;
-    }
-
-    public void setModelID(Integer modelID) {
-        this.modelID = modelID;
-    }
-
-    public Integer getBranchID() {
-        return branchID;
-    }
-
-    public void setBranchID(Integer branchID) {
-        this.branchID = branchID;
-    }
 
     public String getColor() {
         return color;

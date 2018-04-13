@@ -16,20 +16,6 @@ public class ModelModel {
     private String specification;
     private Integer type;
 
-    public ModelModel() {
-    }
-
-    public Model toEntity() {
-        Model model = new Model();
-        model.setBranchID(this.branchID);
-        model.setColor(this.color);
-        model.setDescription(this.description);
-        model.setName(this.name);
-        model.setSpecification(this.specification);
-        model.setType(this.type);
-        return model;
-    }
-
     public Integer getBranchID() {
         return branchID;
     }

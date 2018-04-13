@@ -18,18 +18,6 @@ public class ItemModel {
     public ItemModel() {
     }
 
-    public Item toEntity() {
-        Item item = new Item();
-        item.setStockReceivingItemId(this.stockReceivingItemId);
-        item.setVariantId(this.variantId);
-        item.setName(this.name);
-        item.setImei(this.imei);
-        item.setNote(this.note);
-        item.setSerializerNumber(this.serializerNumber);
-        item.setStatus(this.status);
-        return item;
-    }
-
     public Integer getStockReceivingItemId() {
         return stockReceivingItemId;
     }

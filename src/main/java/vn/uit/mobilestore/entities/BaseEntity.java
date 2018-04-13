@@ -1,9 +1,6 @@
 package vn.uit.mobilestore.entities;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -11,16 +8,23 @@ import java.util.Date;
  */
 @MappedSuperclass
 public class BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+
+    @Column
+    protected Boolean isDeleted = Boolean.FALSE;
     /**
      * The Creation date.
      */
-    @Column(name = "created_date", updatable = false)
+    @Column(updatable = false)
     protected Date createdDate;
 
     /**
      * The Modify date.
      */
-    @Column(name = "modified_date")
+    @Column
     protected Date modifiedDate;
 
 
@@ -60,23 +64,19 @@ public class BaseEntity {
         this.modifiedDate = modifiedDate;
     }
 
-    /**
-     * Update time stamps.
-     */
-    @PreUpdate
-    public void updateTimeStamps() {
-        modifiedDate = new Date();
-        if (createdDate == null) {
-            createdDate = new Date();
-        }
+    public Long getId() {
+        return id;
     }
 
-    /**
-     * Update time stamps for createdDate
-     */
-    @PrePersist
-    public void updateCreationDate() {
-        createdDate = new Date();
-        modifiedDate = createdDate;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

@@ -38,7 +38,7 @@ public class ModelController {
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveItem ");
             //Save item
-            Model item = modelService.saveData(modelModel.toEntity());
+            Model item = null;// modelService.saveData(modelModel.toEntity());
             response.setData(item);
             return response;
         } catch (ApplicationException ae) {
@@ -93,7 +93,7 @@ public class ModelController {
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
             //Update ite
-            Model model = modelService.updateModel(id, modelModel);
+            Model model = null; // modelService.updateModel(id, modelModel);
             response.setData(model);
             return response;
         } catch (ApplicationException ae) {

@@ -7,35 +7,22 @@ import java.util.List;
  * Created by Linh Nguyen on 4/9/2018.
  */
 @Entity
-@Table(name = "brand")
+@Table(name = "brands")
 public class Brand extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BrandId", nullable = false)
-    private Integer brandId;
-
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "Country", nullable = false)
+    @Column( nullable = false)
     private String country;
 
-    @Column(name = "Description", nullable = false)
+    @Column(nullable = false)
     private String description;
 
     @OneToMany(mappedBy = "brand")
     private List<Model> modelList;
 
     public Brand() {
-    }
-
-    public Integer getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
     }
 
     public String getName() {

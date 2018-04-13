@@ -4,39 +4,20 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "StockReceivingItem")
+@Table(name = "stock_receiving_items")
 public class StockReceivingItem extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "StockReceivingItemID", nullable = false)
-    private Integer stockReceivingItemID;
 
-    @Column(name = "PriceBought", nullable = false)
+    @Column(nullable = false)
     private Long priceBought;
 
-    @Column(name = "Quantity", nullable = false)
+    @Column(nullable = false)
     private Integer quantity;
 
-    @Column(name = "StockReceivingOrderID", nullable = false)
-    private Integer stockReceivingOrderID;
-
     @ManyToOne
-    @JoinColumn(name = "StockReceivingOrderID", insertable = false, updatable = false)
     private StockReceivingOrder stockReceivingOrder;
 
     @OneToMany(mappedBy = "stockReceivingItem")
     private List<Item> itemList;
-
-    public StockReceivingItem() {
-    }
-
-    public Integer getStockReceivingItemID() {
-        return stockReceivingItemID;
-    }
-
-    public void setStockReceivingItemID(Integer stockReceivingItemID) {
-        this.stockReceivingItemID = stockReceivingItemID;
-    }
 
     public Long getPriceBought() {
         return priceBought;
@@ -52,14 +33,6 @@ public class StockReceivingItem extends BaseEntity {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Integer getStockReceivingOrderID() {
-        return stockReceivingOrderID;
-    }
-
-    public void setStockReceivingOrderID(Integer stockReceivingOrderID) {
-        this.stockReceivingOrderID = stockReceivingOrderID;
     }
 
     public StockReceivingOrder getStockReceivingOrder() {

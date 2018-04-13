@@ -12,22 +12,16 @@ public class VariantModel {
 
     @NotNull
     private Integer modelID;
+
     private String name;
+
     private String color;
+
     private String storage;
+
     private Long pricesold;
 
     public VariantModel() {
-    }
-
-    public Variant toEntity() {
-        Variant variant = new Variant();
-        variant.setModelID(this.modelID);
-        variant.setName(this.name);
-        variant.setColor(this.color);
-        variant.setStorage(this.storage);
-        variant.setPricesold(this.pricesold);
-        return variant;
     }
 
     public Integer getModelID() {

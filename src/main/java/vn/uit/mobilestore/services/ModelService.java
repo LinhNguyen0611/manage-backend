@@ -32,12 +32,4 @@ public class ModelService extends BaseService <ModelRepository, Model, Integer> 
         return models;
     }
 
-    public Model updateModel(Integer id, ModelModel modelModel) {
-        // Find item
-        Model model = repository.findOne(id);
-        // Update
-        model = model.updateModel(modelModel);
-        this.updateData(model);
-        return model;
-    }
 }

@@ -8,64 +8,34 @@ import javax.persistence.*;
  * Class detail
  */
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 public class Item extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ItemID", nullable = false)
-    private Integer itemId;
-
-    @Column(name = "StockReceivingItemID", nullable = false)
+    @Column(nullable = false)
     private Integer stockReceivingItemId;
 
-    @Column(name = "VariantID", nullable = false)
-    private Integer variantId;
-
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "IMEI", nullable = false)
+    @Column(nullable = false)
     private String imei;
 
-    @Column(name = "SerializerNumber", nullable = false)
+    @Column(nullable = false)
     private String serializerNumber;
 
-    @Column(name = "Note", nullable = false)
+    @Column(nullable = false)
     private String note;
 
-    @Column(name = "Status", nullable = false)
+    @Column( nullable = false)
     private String status;
 
     @ManyToOne
-    @JoinColumn (name = "VariantID", insertable = false, updatable = false)
+    @JoinColumn (insertable = false, updatable = false)
     private Variant variant;
 
     @ManyToOne
-    @JoinColumn(name = "StockReceivingItemID", insertable = false, updatable = false)
+    @JoinColumn(insertable = false, updatable = false)
     private StockReceivingItem stockReceivingItem;
-
-    public Item() {
-    }
-
-    public Item updateItem(ItemModel itemModel) {
-        this.imei = itemModel.getImei();
-        this.stockReceivingItemId = itemModel.getStockReceivingItemId();
-        this.variantId = itemModel.getVariantId();
-        this.name = itemModel.getName();
-        this.note = itemModel.getNote();
-        this.serializerNumber = itemModel.getSerializerNumber();
-        this.status = itemModel.getStatus();
-        return this;
-    }
-
-    public Integer getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
-    }
 
     public Integer getStockReceivingItemId() {
         return stockReceivingItemId;
@@ -73,14 +43,6 @@ public class Item extends BaseEntity {
 
     public void setStockReceivingItemId(Integer stockReceivingItemId) {
         this.stockReceivingItemId = stockReceivingItemId;
-    }
-
-    public Integer getVariantId() {
-        return variantId;
-    }
-
-    public void setVariantId(Integer variantId) {
-        this.variantId = variantId;
     }
 
     public String getName() {

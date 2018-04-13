@@ -27,15 +27,5 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
         return items;
     }
 
-
-    public Item updateItem(Integer id, ItemModel itemModel) {
-        // Find item
-        Item item = repository.findOne(id);
-        // Update
-        item = item.updateItem(itemModel);
-        this.updateData(item);
-        return item;
-    }
-
     //CRUD method is provided by Base Service. Add another method as needed
 }
