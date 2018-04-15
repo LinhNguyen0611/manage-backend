@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity {
+public class Order extends AbstractEntity {
 
     @Column(nullable = false)
     private Long total;

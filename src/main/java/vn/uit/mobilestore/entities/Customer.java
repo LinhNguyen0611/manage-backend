@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "customers")
-public class Customer extends BaseEntity {
+public class Customer extends AbstractEntity {
 
     @Column
     private String phone;

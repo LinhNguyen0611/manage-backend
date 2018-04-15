@@ -4,34 +4,53 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("net.ltgt.gradle:gradle-apt-plugin:0.15")
 	}
 }
 
+
 apply plugin: 'java'
+sourceCompatibility=JavaVersion.VERSION_1_8
+targetCompatibility=JavaVersion.VERSION_1_8
+apply plugin: 'maven'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: "net.ltgt.apt"
+apply plugin: "idea"
+
+idea {
+	module {
+		sourceDirs += file("$buildDir/generated/source/apt/main")
+	}
+}
 
 group = 'vn.uit'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility=JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
+	mavenLocal()
 }
 
 configurations {
 	providedRuntime
 }
 
+ext {
+	mapstructVersion = "1.2.0.Final"
+}
+
 dependencies {
 	// Core web repositories
 	compile('org.springframework.boot:spring-boot-starter-web')
-	// Cor RESTful API
-	compile("org.springframework.boot:spring-boot-starter-data-rest")
 	// JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	// Connection to MySQL. If using another db, find it here: https://mvnrepository.com
@@ -39,6 +58,13 @@ dependencies {
 
 	// Spring security
 	compile 'org.springframework.security:spring-security-web:5.0.3.RELEASE'
+
+	//MapStruct
+	compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+	compile "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+	compile 'javax.xml.bind:jaxb-api:2.3.0'
 
     //swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'

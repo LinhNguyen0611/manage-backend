@@ -1,10 +1,5 @@
 package vn.uit.mobilestore.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-import vn.uit.mobilestore.models.ItemModel;
-import vn.uit.mobilestore.models.ModelModel;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +8,7 @@ import java.util.List;
  */
 @Entity
 @Table (name = "models")
-public class Model extends BaseEntity{
+public class Model extends AbstractEntity {
 
     @Column
     private String color;

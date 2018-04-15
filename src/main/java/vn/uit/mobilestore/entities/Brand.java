@@ -8,7 +8,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "brands")
-public class Brand extends BaseEntity {
+public class Brand extends AbstractEntity {
 
     @Column(nullable = false)
     private String name;

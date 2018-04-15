@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "suppliers")
-public class Supplier extends BaseEntity {
+public class Supplier extends AbstractEntity {
 
     @Column(nullable = false)
     private String name;

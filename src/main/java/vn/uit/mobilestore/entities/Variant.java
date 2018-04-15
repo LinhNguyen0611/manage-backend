@@ -8,7 +8,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "variants")
-public class Variant extends BaseEntity{
+public class Variant extends AbstractEntity {
 
     @Column(nullable = false)
     private String name;

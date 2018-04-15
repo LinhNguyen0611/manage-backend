@@ -1,12 +1,11 @@
 package vn.uit.mobilestore.entities;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "stock_receiving_orders")
-public class StockReceivingOrder extends BaseEntity {
+public class StockReceivingOrder extends AbstractEntity {
 
     @ManyToOne
     private Supplier supplier;

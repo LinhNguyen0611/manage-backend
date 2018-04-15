@@ -1,7 +1,5 @@
 package vn.uit.mobilestore.entities;
 
-import vn.uit.mobilestore.models.ItemModel;
-
 import javax.persistence.*;
 
 /**
@@ -9,10 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "items")
-public class Item extends BaseEntity {
-
-    @Column(nullable = false)
-    private Integer stockReceivingItemId;
+public class Item extends AbstractEntity {
 
     @Column(nullable = false)
     private String name;
@@ -36,14 +31,6 @@ public class Item extends BaseEntity {
     @ManyToOne
     @JoinColumn(insertable = false, updatable = false)
     private StockReceivingItem stockReceivingItem;
-
-    public Integer getStockReceivingItemId() {
-        return stockReceivingItemId;
-    }
-
-    public void setStockReceivingItemId(Integer stockReceivingItemId) {
-        this.stockReceivingItemId = stockReceivingItemId;
-    }
 
     public String getName() {
         return name;

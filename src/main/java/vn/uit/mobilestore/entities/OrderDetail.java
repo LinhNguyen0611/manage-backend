@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "order_details")
-public class OrderDetail {
+public class OrderDetail extends AbstractEntity {
 
     @ManyToOne
     private Item item;

@@ -1,0 +1,22 @@
+server:
+    port: 8080
+
+spring:
+    profiles:
+        active: local
+
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+
+        hikari:
+            minimum-idle: 1
+            maximum-pool-size: 5
+            pool-name: SQLPool
+            auto-commit: false
+
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+security:
+    token:
+        secret: Il0v3Y0u^_^

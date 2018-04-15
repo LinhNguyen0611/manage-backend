@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "stock_receiving_items")
-public class StockReceivingItem extends BaseEntity {
+public class StockReceivingItem extends AbstractEntity {
 
     @Column(nullable = false)
     private Long priceBought;

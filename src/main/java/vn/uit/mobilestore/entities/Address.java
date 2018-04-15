@@ -10,7 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "addresses")
-public class Address extends BaseEntity {
+public class Address extends AbstractEntity {
 
     @Column
     private Boolean isPrimary = Boolean.FALSE;
