@@ -18,5 +18,7 @@ spring:
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 security:
-    token:
-        secret: Il0v3Y0u^_^
+    secret: Il0v3Y0u^_^
+
+    password:
+        strength: 12

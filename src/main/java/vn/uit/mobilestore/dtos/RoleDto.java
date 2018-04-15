@@ -10,6 +10,8 @@ public class RoleDto extends AbstractDto {
 
     private String name;
 
+    private String displayName;
+
     private List<UserDto> users = new ArrayList<>();
 
     public String getName() {
@@ -18,6 +20,14 @@ public class RoleDto extends AbstractDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public List<UserDto> getUsers() {

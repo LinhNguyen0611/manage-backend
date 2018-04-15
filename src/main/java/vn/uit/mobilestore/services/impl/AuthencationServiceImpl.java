@@ -38,7 +38,7 @@ public class AuthencationServiceImpl implements AuthencationService {
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
-    @Value("${security.token.secret}")
+    @Value("${security.secret}")
     private String secretKey;
 
     private String generateToken(User user){
@@ -55,10 +55,10 @@ public class AuthencationServiceImpl implements AuthencationService {
     public LoginResponse login(LoginRequest loginRequest) {
         User user = null;
         if (ValidateUtils.isEmail(loginRequest.getCredential())) {
-            user = userService.findUserByEmail(loginRequest.getCredential());
+            user = userRepository.findByEmail(loginRequest.getCredential()).orElseThrow(() -> new IdentifierPasswordInvalidException());
         }
         else {
-            user = userService.findUserByUsername(loginRequest.getCredential());
+            user = userRepository.findByUsername(loginRequest.getCredential()).orElseThrow(() -> new IdentifierPasswordInvalidException());
         }
         if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             LoginResponse loginResponse = new LoginResponse();

@@ -35,12 +35,14 @@ public class PageableParameterBuilderPlugin implements ParameterBuilderPlugin {
             List<Parameter> parameters = new ArrayList();
             parameters.add(context.parameterBuilder()
                     .parameterType("query").name("page")
+                    .required(false)
                     .type(resolver.resolve(Integer.class))
                     .modelRef(new ModelRef("int"))
                     .description("Page number of the requested page")
                     .build());
             parameters.add(context.parameterBuilder()
                     .parameterType("query").name("size")
+                    .required(false)
                     .type(resolver.resolve(Integer.class))
                     .modelRef(new ModelRef("int"))
                     .description("Size of a page")
@@ -48,6 +50,7 @@ public class PageableParameterBuilderPlugin implements ParameterBuilderPlugin {
             );
             parameters.add(context.parameterBuilder()
                     .parameterType("query").name("sort")
+                    .required(false)
                     .type(resolver.resolve(String.class))
                     .modelRef(new ModelRef("string"))
                     .allowMultiple(true)

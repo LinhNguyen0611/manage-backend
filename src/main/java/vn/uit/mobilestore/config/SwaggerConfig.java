@@ -31,7 +31,6 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .additionalModels(typeResolver.resolve(Pageable.class))
                 .securitySchemes(apiKey())
                 .securityContexts(securityContext())
                 .apiInfo(apiInfo())
@@ -64,7 +63,7 @@ public class SwaggerConfig {
         List<SecurityContext> securityContexts = new ArrayList<>();
         securityContexts.add(SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/api/auth.*"))
+                .forPaths(PathSelectors.regex("/*.*"))
                 .build());
 
         return securityContexts;

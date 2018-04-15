@@ -1,6 +1,9 @@
 package vn.uit.mobilestore.mappers;
 
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import vn.uit.mobilestore.dtos.UserDto;
 import vn.uit.mobilestore.entities.User;
 import vn.uit.mobilestore.requests.UserRequest;
@@ -22,7 +25,13 @@ import java.util.List;
 )
 public abstract class UserMapper extends AbstractMapper<UserDto, User, UserRequest> {
 
+    @Autowired
+    protected PasswordEncoder passwordEncoder;
+
     @CreateUser
+    @Mappings({
+            @Mapping(target = "password", expression = "java(passwordEncoder.encode(userCreateRequest.getPassword()))")
+    })
     public abstract User createUser(UserCreateRequest userCreateRequest);
 
     @ToEntity

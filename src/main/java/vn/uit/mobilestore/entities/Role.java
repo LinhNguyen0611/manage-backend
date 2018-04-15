@@ -17,6 +17,9 @@ public class Role extends AbstractEntity {
     @Column(unique = true)
     private String name;
 
+    @Column
+    private String displayName;
+
     @ManyToMany
     private List<User> users = new ArrayList<>();
 
@@ -26,6 +29,14 @@ public class Role extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public List<User> getUsers() {
