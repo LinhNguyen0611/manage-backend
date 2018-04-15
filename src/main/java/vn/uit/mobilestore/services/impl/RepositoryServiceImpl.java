@@ -24,7 +24,7 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    public <Entity extends AbstractEntity, Repository extends JpaRepository<Entity, String>> Repository getRepository(Class<Entity> entityClass) {
+    public <Entity extends AbstractEntity, Repository extends JpaRepository<Entity, Long>> Repository getRepository(Class<Entity> entityClass) {
         Repository repository = (Repository) repositories.getRepositoryFor(entityClass);
         if (repository == null) {
             repository = (Repository) repositories.getRepositoryFor(entityClass.getSuperclass());

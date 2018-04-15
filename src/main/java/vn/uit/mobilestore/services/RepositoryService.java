@@ -5,6 +5,6 @@ import vn.uit.mobilestore.entities.AbstractEntity;
 
 public interface RepositoryService {
 
-    <Entity extends AbstractEntity, Repository extends JpaRepository<Entity, String>> Repository getRepository(Class<Entity> entityClass);
+    <Entity extends AbstractEntity, Repository extends JpaRepository<Entity, Long>> Repository getRepository(Class<Entity> entityClass);
 
 }

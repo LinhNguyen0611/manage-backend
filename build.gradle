@@ -57,7 +57,7 @@ dependencies {
 	runtime('mysql:mysql-connector-java')
 
 	// Spring security
-	compile 'org.springframework.security:spring-security-web:5.0.3.RELEASE'
+	compile('org.springframework.boot:spring-boot-starter-security')
 
 	//MapStruct
 	compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
@@ -65,6 +65,7 @@ dependencies {
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
 	compile 'javax.xml.bind:jaxb-api:2.3.0'
+	compile 'commons-validator:commons-validator:1.4.1'
 
     //swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'

@@ -7,23 +7,23 @@ import vn.uit.mobilestore.services.AbstractService;
 
 public abstract class AbstractServiceImpl<Entity extends AbstractEntity> implements AbstractService<Entity> {
 
-    protected JpaRepository<Entity, String> repository;
+    protected JpaRepository<Entity, Long> repository;
 
-    protected JpaRepository<Entity, String> getRepository() {
+    protected JpaRepository<Entity, Long> getRepository() {
         return repository;
     }
 
-    protected void setRepository(JpaRepository<Entity, String> repository) {
+    protected void setRepository(JpaRepository<Entity, Long> repository) {
         this.repository = repository;
     }
 
     @Override
-    public Entity findResource(String id) {
+    public Entity findResource(Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    public Entity findResourceStrict(String id) {
+    public Entity findResourceStrict(Long id) {
         Entity entity = repository.findOne(id);
         if (entity == null) {
             throw new ResourceNotFoundException();

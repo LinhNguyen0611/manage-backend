@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 @Component
-public class AppAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
+public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
 
     private static final long serialVersionUID = -8970718410437077606L;
 

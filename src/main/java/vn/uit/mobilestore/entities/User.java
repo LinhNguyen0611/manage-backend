@@ -35,7 +35,7 @@ public class User extends AbstractEntity implements UserDetails {
     private String token;
 
     @ManyToMany
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public boolean isAccountNonExpired() {

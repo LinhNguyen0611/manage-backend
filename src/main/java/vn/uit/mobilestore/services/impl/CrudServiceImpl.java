@@ -58,7 +58,7 @@ public class CrudServiceImpl<Dto extends AbstractDto, Entity extends AbstractEnt
     }
 
     @Override
-    public Dto readSimpleResource(String id) {
+    public Dto readSimpleResource(Long id) {
         Entity entity = repository.findOne(id);
         if (entity == null) {
             throw new ResourceNotFoundException();
@@ -68,7 +68,7 @@ public class CrudServiceImpl<Dto extends AbstractDto, Entity extends AbstractEnt
     }
 
     @Override
-    public Dto updateSimpleResource(String id, Request request) {
+    public Dto updateSimpleResource(Long id, Request request) {
         Entity entity = mapper.updateEntity(id, request);
         entity = repository.save(entity);
 
@@ -76,7 +76,7 @@ public class CrudServiceImpl<Dto extends AbstractDto, Entity extends AbstractEnt
     }
 
     @Override
-    public Dto deleteSimpleResource(String id) {
+    public Dto deleteSimpleResource(Long id) {
         Entity entity = repository.findOne(id);
         if (entity == null) {
             throw new ResourceNotFoundException();
@@ -108,7 +108,7 @@ public class CrudServiceImpl<Dto extends AbstractDto, Entity extends AbstractEnt
     }
 
     @Override
-    public Dto readFullResource(String id) {
+    public Dto readFullResource(Long id) {
         Entity entity = repository.findOne(id);
         if (entity == null) {
             throw new ResourceNotFoundException();
@@ -118,7 +118,7 @@ public class CrudServiceImpl<Dto extends AbstractDto, Entity extends AbstractEnt
     }
 
     @Override
-    public Dto updateFullResource(String id, Request request) {
+    public Dto updateFullResource(Long id, Request request) {
         Entity entity = mapper.updateEntity(id, request);
         entity = repository.save(entity);
 
@@ -126,7 +126,7 @@ public class CrudServiceImpl<Dto extends AbstractDto, Entity extends AbstractEnt
     }
 
     @Override
-    public Dto deleteFullResource(String id) {
+    public Dto deleteFullResource(Long id) {
         Entity entity = repository.findOne(id);
         if (entity == null) {
             throw new ResourceNotFoundException();

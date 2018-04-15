@@ -11,4 +11,8 @@ public interface UserService extends CrudService<UserDto, User, UserRequest> {
 
     User findByToken(String token);
 
+    User findUserByEmail(String email);
+
+    User findUserByUsername(String username);
+
 }

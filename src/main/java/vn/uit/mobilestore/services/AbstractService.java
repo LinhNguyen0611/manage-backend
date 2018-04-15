@@ -4,8 +4,8 @@ import vn.uit.mobilestore.entities.AbstractEntity;
 
 public interface AbstractService<Entity extends AbstractEntity> {
 
-    Entity findResource(String id);
+    Entity findResource(Long id);
 
-    Entity findResourceStrict(String id);
+    Entity findResourceStrict(Long id);
 
 }

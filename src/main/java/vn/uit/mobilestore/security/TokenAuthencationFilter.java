@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AppSecretFilter extends BasicAuthenticationFilter {
+public class TokenAuthencationFilter extends BasicAuthenticationFilter {
 
     private static final String tokenHeader = "Authorization";
 
     private UserService userService;
 
-    public AppSecretFilter(AuthenticationManager authenticationManager, UserService userService) {
+    public TokenAuthencationFilter(AuthenticationManager authenticationManager, UserService userService) {
         super(authenticationManager);
         this.userService = userService;
     }
@@ -28,7 +28,7 @@ public class AppSecretFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse,
                                     FilterChain chain) throws IOException, ServletException {
-        AppSecretAuthencation authentication = getAuthentication(httpServletRequest);
+        TokenAuthencation authentication = getAuthentication(httpServletRequest);
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
@@ -36,11 +36,11 @@ public class AppSecretFilter extends BasicAuthenticationFilter {
         chain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    private AppSecretAuthencation getAuthentication(HttpServletRequest request) {
+    private TokenAuthencation getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         User user = userService.findByToken(token);
         if (user != null) {
-            return new AppSecretAuthencation(user, null, new ArrayList<>());
+            return new TokenAuthencation(user, null, user.getAuthorities());
         }
 
         return null;

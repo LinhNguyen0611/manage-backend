@@ -17,11 +17,11 @@ public interface CrudService<Dto extends AbstractDto, Entity extends AbstractEnt
 
     Dto createSimpleResource(Request request);
 
-    Dto readSimpleResource(String id);
+    Dto readSimpleResource(Long id);
 
-    Dto updateSimpleResource(String id, Request request);
+    Dto updateSimpleResource(Long id, Request request);
 
-    Dto deleteSimpleResource(String id);
+    Dto deleteSimpleResource(Long id);
 
     List<Dto> getFullResources();
 
@@ -29,9 +29,9 @@ public interface CrudService<Dto extends AbstractDto, Entity extends AbstractEnt
 
     Dto createFullResource(Request request);
 
-    Dto readFullResource(String id);
+    Dto readFullResource(Long id);
 
-    Dto updateFullResource(String id, Request request);
+    Dto updateFullResource(Long id, Request request);
 
-    Dto deleteFullResource(String id);
+    Dto deleteFullResource(Long id);
 }

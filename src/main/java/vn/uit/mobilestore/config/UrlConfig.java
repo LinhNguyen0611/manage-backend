@@ -1,4 +1,4 @@
-package vn.uit.mobilestore.constants;
+package vn.uit.mobilestore.config;
 
 /**
  * The interface Url.

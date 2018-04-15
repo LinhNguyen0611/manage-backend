@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Role extends AbstractEntity {
     private String name;
 
     @ManyToMany
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
     public String getName() {
         return name;

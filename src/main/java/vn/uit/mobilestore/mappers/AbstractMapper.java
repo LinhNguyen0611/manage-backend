@@ -21,7 +21,7 @@ public abstract class AbstractMapper<Dto extends AbstractDto, Entity extends Abs
     @Autowired
     protected RepositoryService repositoryService;
 
-    protected JpaRepository<Entity, String> repository;
+    protected JpaRepository<Entity, Long> repository;
 
     @PostConstruct
     public void initialize() {
@@ -30,16 +30,17 @@ public abstract class AbstractMapper<Dto extends AbstractDto, Entity extends Abs
     }
 
     // Convert from dto to entity when create entity
+    @ToEntity
     protected abstract void mapEntity(Request request, @MappingTarget Entity entity);
 
     // Convert from dto to entity when update entity
     // The default is converted by mapEntity
     // Override this method if create and update is different
+    @UpdateEntity
     protected void updateEntity(Request request, @MappingTarget Entity entity) {
         mapEntity(request, entity);
     }
 
-    @ToEntity
     public Entity toEntity(Request request) {
         Entity entity = ReflectUtils.newInstanceFromParameter(this.getClass(), 1);
         if (entity != null) {
@@ -51,8 +52,7 @@ public abstract class AbstractMapper<Dto extends AbstractDto, Entity extends Abs
         return null;
     }
 
-    @UpdateEntity
-    public Entity updateEntity(String id, Request request) {
+    public Entity updateEntity(Long id, Request request) {
         Entity entity = repository.findOne(id);
         if (entity != null) {
             updateEntity(request, entity);

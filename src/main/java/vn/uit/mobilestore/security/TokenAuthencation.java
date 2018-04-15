@@ -5,12 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class AppSecretAuthencation extends UsernamePasswordAuthenticationToken {
-    public AppSecretAuthencation(Object principal, Object credentials) {
+public class TokenAuthencation extends UsernamePasswordAuthenticationToken {
+    public TokenAuthencation(Object principal, Object credentials) {
         super(principal, credentials);
     }
 
-    public AppSecretAuthencation(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
+    public TokenAuthencation(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(principal, credentials, authorities);
     }
 }

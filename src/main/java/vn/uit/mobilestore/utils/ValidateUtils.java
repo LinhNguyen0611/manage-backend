@@ -1,9 +1,15 @@
 package vn.uit.mobilestore.utils;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 import java.util.Collection;
 import java.util.Map;
 
 public class ValidateUtils {
+
+    public static Boolean isEmail(String input) {
+        return EmailValidator.getInstance().isValid(input);
+    }
     
     public static Boolean isNullOrEmpty(String input) {
         return (input == null) || input.isEmpty();

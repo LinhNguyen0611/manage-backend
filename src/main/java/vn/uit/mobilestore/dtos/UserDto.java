@@ -1,5 +1,10 @@
 package vn.uit.mobilestore.dtos;
 
+import vn.uit.mobilestore.entities.Role;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by HieuNP on 15/04/2018.
  */
@@ -10,6 +15,8 @@ public class UserDto extends AbstractDto {
     private String email;
 
     private String fullName;
+
+    private List<RoleDto> roles = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -33,5 +40,13 @@ public class UserDto extends AbstractDto {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public List<RoleDto> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDto> roles) {
+        this.roles = roles;
     }
 }
