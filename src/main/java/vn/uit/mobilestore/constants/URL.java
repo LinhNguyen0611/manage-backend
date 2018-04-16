@@ -34,5 +34,9 @@ public interface URL {
     String MODEL_CONTROLLER = "model";
 
     String BRANCH_CONTROLLER ="branch";
+
+    String USER_CONTROLLER = "users";
+
+    String ROLE_CONTROLLER = "role";
 }
 

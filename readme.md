@@ -134,3 +134,41 @@ DELETE (or POST) /XXX/delete/{id}: Delete item by id
 GET /XXX/list/{size}/{page}: Get list paging of all items
 ```
 
+
+## Progress
+
+### Authentication and Authorization
+
+- Login endpoint: `/login`
+
+Body:
+```json
+{
+  "userName": "your_username",
+  "password": "your_password"
+}
+```
+
+Response:
+```json
+{
+    "Authorization": "Bearer eyJh..."
+}
+```
+
+Calling other APIs with the response `Authorization` header
+- Sign-up API: `/users/sign-up`
+
+
+#### Implementation
+
+- [Sign-up] check for user existence
+- [Sign-up] validate user name
+- Login payload:
+
+```
+{
+    "userName": "yourusername",
+    "password": "yourpassword"
+}
+```
