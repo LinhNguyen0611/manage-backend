@@ -28,7 +28,7 @@ configurations {
 }
 
 dependencies {
-	// Core web repositories
+	// Core web repositories 
 	compile('org.springframework.boot:spring-boot-starter-web')
 	// Cor RESTful API
 	compile("org.springframework.boot:spring-boot-starter-data-rest")
@@ -39,6 +39,7 @@ dependencies {
 
 	// Spring security
 	compile 'org.springframework.security:spring-security-web:5.0.3.RELEASE'
+	compile('org.springframework.boot:spring-boot-starter-security')
 
     //swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
@@ -48,6 +49,15 @@ dependencies {
 
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	//Security
+	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.7.RELEASE'
+	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.1.0.RELEASE'
+	compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.2.3.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '3.2.4.RELEASE'
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+	compile group: 'org.json', name: 'json', version: '20180130'
 }
 
 configurations.all {

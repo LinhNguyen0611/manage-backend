@@ -1,5 +1,6 @@
 package vn.uit.mobilestore.services;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.BaseEntity;
 import vn.uit.mobilestore.exceptions.ApplicationException;
@@ -18,7 +19,7 @@ import java.io.Serializable;
  * @param <E>  the type parameter
  * @param <ID> the type parameter
  */
-abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity, ID extends Serializable> {
+abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity, ID extends Serializable>{
     /**
      * The Repository.
      */
