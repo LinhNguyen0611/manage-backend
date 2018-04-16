@@ -29,9 +29,9 @@ public class Customer extends BaseEntity {
 
     @Column(name = "Birthday")
     private Date birthday;
-
+/*
     @OneToMany(mappedBy = "customer")
-    private List<Order> orders;
+    private List<Order> orders;*/
 
     public Customer() {
     }
@@ -84,11 +84,11 @@ public class Customer extends BaseEntity {
         this.birthday = birthday;
     }
 
-    public List<Order> getOrders() {
+/*    public List<Order> getOrders() {
         return orders;
     }
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
+    }*/
 }
