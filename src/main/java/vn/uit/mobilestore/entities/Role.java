@@ -1,5 +1,9 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -12,6 +16,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "roles")
+@Where(clause = "is_deleted = 0")
+@SQLDelete(sql = "UPDATE roles SET is_deleted = 1 WHERE id = ?", check = ResultCheckStyle.COUNT)
 public class Role extends AbstractEntity {
 
     @Column(unique = true)
@@ -20,7 +26,7 @@ public class Role extends AbstractEntity {
     @Column
     private String displayName;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
 
     public String getName() {

@@ -1,5 +1,9 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,6 +15,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "customers")
+@Where(clause = "is_deleted = 0")
+@SQLDelete(sql = "UPDATE customers SET is_deleted = 1 WHERE id = ?", check = ResultCheckStyle.COUNT)
 public class Customer extends AbstractEntity {
 
     @Column

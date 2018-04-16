@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  * Base Access Model
  */
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity {
 
     @Id
@@ -22,16 +24,21 @@ public class AbstractEntity {
     protected Boolean isDeleted = Boolean.FALSE;
 
     @CreatedBy
-    protected String createdBy;
+    protected Long createdBy;
 
     @CreatedDate
     protected Date createdDate;
 
     @LastModifiedBy
-    protected String lastModifiedBy;
+    protected Long lastModifiedBy;
 
     @LastModifiedDate
     protected Date lastModifiedDate;
+
+    @PreRemove
+    public void postDelete() {
+        setDeleted(true);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -74,11 +81,11 @@ public class AbstractEntity {
         isDeleted = deleted;
     }
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -90,11 +97,11 @@ public class AbstractEntity {
         this.createdDate = createdDate;
     }
 
-    public String getLastModifiedBy() {
+    public Long getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(Long lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

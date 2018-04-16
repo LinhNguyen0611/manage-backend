@@ -3,6 +3,8 @@ package vn.uit.mobilestore.security;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
+import vn.uit.mobilestore.config.AppConfig;
 import vn.uit.mobilestore.entities.User;
 import vn.uit.mobilestore.services.UserService;
 
@@ -14,8 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TokenAuthencationFilter extends BasicAuthenticationFilter {
-
-    private static final String tokenHeader = "Authorization";
 
     private UserService userService;
 
@@ -37,7 +37,7 @@ public class TokenAuthencationFilter extends BasicAuthenticationFilter {
     }
 
     private TokenAuthencation getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
+        String token = request.getHeader(AppConfig.TOKEN_HEADER);
         User user = userService.findByToken(token);
         if (user != null) {
             return new TokenAuthencation(user, null, user.getAuthorities());

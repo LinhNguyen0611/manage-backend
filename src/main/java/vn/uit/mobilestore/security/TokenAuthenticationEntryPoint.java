@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import vn.uit.mobilestore.config.AppConfig;
 import vn.uit.mobilestore.responses.ErrorResponse;
+import vn.uit.mobilestore.utils.ValidateUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,9 +27,16 @@ public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint, 
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
+        String token = request.getHeader(AppConfig.TOKEN_HEADER);
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setCode(HttpStatus.UNAUTHORIZED.name());
-        errorResponse.setMessage(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        if (ValidateUtils.isNotNullAndEmpty(token)) {
+            errorResponse.setCode("TOKEN_IS_INVALID");
+            errorResponse.setMessage("The token is invalid");
+        }
+        else {
+            errorResponse.setCode(HttpStatus.UNAUTHORIZED.name());
+            errorResponse.setMessage(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        }
 
         response.reset();
         response.setHeader("Content-Type", "application/json;charset=UTF-8");

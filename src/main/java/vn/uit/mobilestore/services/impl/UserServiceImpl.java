@@ -49,8 +49,6 @@ public class UserServiceImpl extends CrudServiceImpl<UserDto, User, UserRequest>
             catch (Exception e) {
                 LOGGER.warn("Decode token has error: {}", e);
             }
-
-            throw new TokenInvalidException();
         }
 
         return null;

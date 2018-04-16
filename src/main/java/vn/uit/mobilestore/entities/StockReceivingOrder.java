@@ -1,10 +1,16 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "stock_receiving_orders")
+@Where(clause = "is_deleted = 0")
+@SQLDelete(sql = "UPDATE stock_receiving_orders SET is_deleted = 1 WHERE id = ?", check = ResultCheckStyle.COUNT)
 public class StockReceivingOrder extends AbstractEntity {
 
     @ManyToOne

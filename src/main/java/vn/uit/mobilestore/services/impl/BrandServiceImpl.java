@@ -1,8 +1,10 @@
 package vn.uit.mobilestore.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.dtos.BrandDto;
 import vn.uit.mobilestore.entities.Brand;
+import vn.uit.mobilestore.repositories.BrandRepository;
 import vn.uit.mobilestore.requests.BrandRequest;
 import vn.uit.mobilestore.services.BrandService;
 
@@ -11,4 +13,7 @@ import vn.uit.mobilestore.services.BrandService;
  */
 @Service
 public class BrandServiceImpl extends CrudServiceImpl<BrandDto, Brand, BrandRequest> implements BrandService {
+
+    @Autowired
+    protected BrandRepository repository;
 }

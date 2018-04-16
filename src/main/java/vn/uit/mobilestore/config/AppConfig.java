@@ -18,6 +18,8 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @EnableJpaRepositories(basePackages = {"vn.uit"})
 public class AppConfig {
 
+    public static final String TOKEN_HEADER = "Authorization";
+
     @Bean
     public Jackson2ObjectMapperBuilder objectMapperBuilder() {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();

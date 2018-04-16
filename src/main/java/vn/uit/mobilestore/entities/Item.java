@@ -1,5 +1,9 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +11,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "items")
+@Where(clause = "is_deleted = 0")
+@SQLDelete(sql = "UPDATE items SET is_deleted = 1 WHERE id = ?", check = ResultCheckStyle.COUNT)
 public class Item extends AbstractEntity {
 
     @Column(nullable = false)

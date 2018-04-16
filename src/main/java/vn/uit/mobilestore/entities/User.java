@@ -1,5 +1,8 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +17,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
+@Where(clause = "is_deleted = 0")
+@SQLDelete(sql = "UPDATE users SET is_deleted = 1 WHERE id = ?", check = ResultCheckStyle.COUNT)
 public class User extends AbstractEntity implements UserDetails {
 
     @Column(unique = true)

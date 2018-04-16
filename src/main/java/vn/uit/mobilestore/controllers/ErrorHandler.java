@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -59,9 +60,17 @@ public class ErrorHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    private static final ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException exception) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage("Access is denied");
+        errorResponse.setCode("ACCESS_IS_DENIED");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    }
+
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ErrorResponse> handleThrowable(Throwable exception) {
-        LOGGER.warn("Error: {}", exception);
+        LOGGER.warn("Error: ", exception);
         if (exception instanceof DataIntegrityViolationException) {
             return handleDataIntegrityViolationException((DataIntegrityViolationException) exception);
         }
@@ -73,6 +82,9 @@ public class ErrorHandler {
         }
         if (exception instanceof RestException) {
             return handleRestException((RestException) exception);
+        }
+        if (exception instanceof AccessDeniedException) {
+            return handleAccessDenied((AccessDeniedException) exception);
         }
 
         //Default error

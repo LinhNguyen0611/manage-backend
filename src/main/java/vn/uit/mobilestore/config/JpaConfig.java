@@ -11,7 +11,7 @@ import vn.uit.mobilestore.security.AuditorAwareLong;
 public class JpaConfig {
 
     @Bean(name = "auditorAware")
-    public AuditorAware<Long> stringAuditorAware() {
+    public AuditorAware<Long> getAuditorAware() {
         return new AuditorAwareLong();
     }
 }
