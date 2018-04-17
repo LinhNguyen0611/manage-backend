@@ -33,7 +33,9 @@ public interface URL {
 
     String MODEL_CONTROLLER = "model";
 
-    String BRANCH_CONTROLLER ="branch";
+    String BRAND_CONTROLLER ="brand";
+
+    String VARIANT_CONTROLLER ="variant";
 
     String USER_CONTROLLER = "users";
 

@@ -16,7 +16,7 @@ public class Item extends BaseEntity {
     @Column(name = "ItemID", nullable = false)
     private Integer itemId;
 
-    @Column(name = "StockReceivingItemID", nullable = false)
+    @Column(name = "StockReceivingItemID")
     private Integer stockReceivingItemId;
 
     @Column(name = "VariantID", nullable = false)

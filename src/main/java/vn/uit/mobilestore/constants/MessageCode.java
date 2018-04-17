@@ -8,6 +8,11 @@ public enum MessageCode {
     ERROR_BAD_REQUEST(400, "Bad request"),
     //User or request object not found
     ERROR_NOT_FOUND(404, "Not found"),
+
+    ERROR_MODEL_ID_NOT_FOUND(4041, "Model ID not found"),
+    ERROR_BRAND_ID_NOT_FOUND(4042, "Brand ID not found"),
+    ERROR_VARIANT_ID_NOT_FOUND(4043, "Variant ID not found"),
+    ERROR_STOCKRECEIVINGITEM_ID_NOT_FOUND(4044, "StockReceivingItem ID not found"),
     //Other error
     ERROR_OTHER(9999, "Unexpected error");
 

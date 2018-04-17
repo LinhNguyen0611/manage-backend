@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import vn.uit.mobilestore.models.VariantModel;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -38,6 +40,15 @@ public class Variant extends BaseEntity{
     private List<Item> itemList;
 
     public Variant() {
+    }
+
+    public Variant updateVariant(VariantModel variantModel) {
+        this.modelID = variantModel.getModelID();
+        this.name = variantModel.getName();
+        this.color = variantModel.getColor();
+        this.storage = variantModel.getStorage();
+        this.pricesold = variantModel.getPricesold();
+        return this;
     }
 
     public Integer getVariantId() {
@@ -103,4 +114,5 @@ public class Variant extends BaseEntity{
     public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
     }
+
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  */
 public class ModelModel {
     @NotNull
-    private Integer branchID;
+    private Integer brandID;
     private String color;
     private String description;
     private String name;
@@ -21,7 +21,7 @@ public class ModelModel {
 
     public Model toEntity() {
         Model model = new Model();
-        model.setBranchID(this.branchID);
+        model.setBrandID(this.brandID);
         model.setColor(this.color);
         model.setDescription(this.description);
         model.setName(this.name);
@@ -30,12 +30,12 @@ public class ModelModel {
         return model;
     }
 
-    public Integer getBranchID() {
-        return branchID;
+    public Integer getBrandID() {
+        return brandID;
     }
 
-    public void setBranchID(Integer branchID) {
-        this.branchID = branchID;
+    public void setBrandID(Integer brandID) {
+        this.brandID = brandID;
     }
 
     public String getColor() {
