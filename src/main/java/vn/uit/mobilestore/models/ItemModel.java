@@ -5,7 +5,6 @@ import vn.uit.mobilestore.entities.Item;
 import javax.validation.constraints.NotNull;
 
 public class ItemModel {
-    @NotNull
     private Integer stockReceivingItemId;
     @NotNull
     private Integer variantId;

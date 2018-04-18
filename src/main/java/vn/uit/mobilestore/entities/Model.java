@@ -19,8 +19,8 @@ public class Model extends BaseEntity{
     @Column(name = "ModelID", nullable = false)
     private Integer modelID;
 
-    @Column(name = "BranchID", nullable = false)
-    private Integer branchID;
+    @Column(name = "BrandID", nullable = false)
+    private Integer brandID;
 
     @Column(name = "Color")
     private String color;
@@ -38,7 +38,7 @@ public class Model extends BaseEntity{
     private Integer type;
 
     @ManyToOne
-    @JoinColumn(name = "BranchID", insertable = false, updatable = false)
+    @JoinColumn(name = "BrandID", insertable = false, updatable = false)
     private Brand brand;
 
     @OneToMany (mappedBy = "model")
@@ -49,7 +49,7 @@ public class Model extends BaseEntity{
 
 
     public Model updateModel(ModelModel modelModel) {
-        this.branchID = modelModel.getBranchID();
+        this.brandID = modelModel.getBrandID();
         this.color = modelModel.getColor();
         this.description = modelModel.getDescription();
         this.name = modelModel.getName();
@@ -66,12 +66,12 @@ public class Model extends BaseEntity{
         this.modelID = modelID;
     }
 
-    public Integer getBranchID() {
-        return branchID;
+    public Integer getBrandID() {
+        return brandID;
     }
 
-    public void setBranchID(Integer branchID) {
-        this.branchID = branchID;
+    public void setBrandID(Integer brandID) {
+        this.brandID = brandID;
     }
 
     public String getColor() {

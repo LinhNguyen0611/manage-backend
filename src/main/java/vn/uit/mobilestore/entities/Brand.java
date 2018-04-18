@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import vn.uit.mobilestore.models.BrandModel;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -28,6 +30,13 @@ public class Brand extends BaseEntity {
     private List<Model> modelList;
 
     public Brand() {
+    }
+
+    public Brand updateBrand(BrandModel brandModel) {
+        this.country = brandModel.getCountry();
+        this.description = brandModel.getDescription();
+        this.name = brandModel.getName();
+        return this;
     }
 
     public Integer getBrandId() {

@@ -7,76 +7,73 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.URL;
-import vn.uit.mobilestore.entities.Item;
-import vn.uit.mobilestore.entities.Model;
+import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
-import vn.uit.mobilestore.models.ItemModel;
-import vn.uit.mobilestore.models.ModelModel;
+import vn.uit.mobilestore.models.VariantModel;
 import vn.uit.mobilestore.responses.ResponseModel;
-import vn.uit.mobilestore.services.ModelService;
+import vn.uit.mobilestore.services.VariantService;
 
 import javax.validation.Valid;
 
 /**
- * Created by Linh Nguyen on 4/1/2018.
+ * Created by Linh Nguyen on 4/17/2018.
  */
 @RestController
-@RequestMapping(URL.MODEL_CONTROLLER)
-public class ModelController {
+@RequestMapping(URL.VARIANT_CONTROLLER)
+public class VariantController {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private final ModelService modelService;
+    private final VariantService variantService;
 
     @Autowired
-    public ModelController(ModelService modelService) {
-        this.modelService = modelService;
+    public VariantController(VariantService variantService) {
+        this.variantService = variantService;
     }
-
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
-    public ResponseModel<Model> saveModel(@RequestBody @Valid ModelModel modelModel) {
-        ResponseModel<Model> response = new ResponseModel<>();
+    public ResponseModel<Variant> saveVariant(@RequestBody @Valid VariantModel variantModel) {
+        ResponseModel<Variant> response = new ResponseModel<>();
         try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveItem ");
-            //Save item
-            Model item = modelService.saveModel(modelModel.toEntity());
-            response.setData(item);
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveVariant ");
+            //Save variant - create method in service to validate
+            Variant variant = variantService.saveVariant(variantModel.toEntity());
+            response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " saveItem : {}", ae.getMessage());
+            LOG.error(Const.LOGGING_ERROR + " saveVariant : {}", ae.getMessage());
             response.buildError(ae);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " saveItem ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " saveVariant ");
         }
     }
 
     @RequestMapping(value = URL.GET_ACTION, method = RequestMethod.GET)
-    public ResponseModel<Model> getModel(@PathVariable(value = Const.PATH_ID) Integer id) {
-        ResponseModel<Model> response = new ResponseModel<>();
+    public ResponseModel<Variant> getModel(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<Variant> response = new ResponseModel<>();
         try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getModel ");
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getVariant ");
             //Get item
-            Model item = modelService.getById(id);
-            response.setData(item);
+            Variant variant = variantService.getById(id);
+            response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " getModel : {}", ae.getMessage());
+            LOG.error(Const.LOGGING_ERROR + " getVariant : {}", ae.getMessage());
             response.buildError(ae);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " getModel ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getVariant ");
         }
     }
 
     @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
-    public ResponseModel<Model> updateModel(@PathVariable(value = Const.PATH_ID) Integer id,
-                                            @RequestBody @Valid ModelModel modelModel) {
-        ResponseModel<Model> response = new ResponseModel<>();
+    public ResponseModel<Variant> updateVariant(@PathVariable(value = Const.PATH_ID) Integer id,
+                                              @RequestBody @Valid VariantModel variantModel) {
+        ResponseModel<Variant> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
             //Update ite
-            Model model = modelService.updateModel(id, modelModel);
-            response.setData(model);
+            Variant variant = variantService.updateVariant(id, variantModel);
+            response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
             LOG.error(Const.LOGGING_ERROR + " updateItem : {}", ae.getMessage());
@@ -88,21 +85,21 @@ public class ModelController {
     }
 
     @RequestMapping(value = URL.LIST_PAGING, method = RequestMethod.GET)
-    public ResponseModel<Page<Model>> listAll(
+    public ResponseModel<Page<Variant>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<Model>> response = new ResponseModel<>();
+        ResponseModel<Page<Variant>> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
             //List all
-            response.setData(modelService.listAll(page, size));
+            response.setData(variantService.listAll(page, size));
             return response;
         } catch (ApplicationException ex) {
-            LOG.error(Const.LOGGING_ERROR + "listByName: {}", ex.getMessage());
+            LOG.error(Const.LOGGING_ERROR + "listAll: {}", ex.getMessage());
             response.buildError(ex);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " listByName ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
         }
     }
 }

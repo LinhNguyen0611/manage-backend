@@ -7,76 +7,74 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.URL;
-import vn.uit.mobilestore.entities.Item;
-import vn.uit.mobilestore.entities.Model;
+import vn.uit.mobilestore.entities.Brand;
 import vn.uit.mobilestore.exceptions.ApplicationException;
-import vn.uit.mobilestore.models.ItemModel;
-import vn.uit.mobilestore.models.ModelModel;
+import vn.uit.mobilestore.models.BrandModel;
 import vn.uit.mobilestore.responses.ResponseModel;
-import vn.uit.mobilestore.services.ModelService;
+import vn.uit.mobilestore.services.BrandService;
 
 import javax.validation.Valid;
 
 /**
- * Created by Linh Nguyen on 4/1/2018.
+ * Created by Linh Nguyen on 4/17/2018.
  */
 @RestController
-@RequestMapping(URL.MODEL_CONTROLLER)
-public class ModelController {
+@RequestMapping(URL.BRAND_CONTROLLER)
+public class BrandController {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private final ModelService modelService;
+    private final BrandService brandService;
 
     @Autowired
-    public ModelController(ModelService modelService) {
-        this.modelService = modelService;
+    public BrandController(BrandService brandService) {
+        this.brandService = brandService;
     }
 
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
-    public ResponseModel<Model> saveModel(@RequestBody @Valid ModelModel modelModel) {
-        ResponseModel<Model> response = new ResponseModel<>();
+    public ResponseModel<Brand> saveBrand(@RequestBody @Valid BrandModel brandModel) {
+        ResponseModel<Brand> response = new ResponseModel<>();
         try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveItem ");
-            //Save item
-            Model item = modelService.saveModel(modelModel.toEntity());
-            response.setData(item);
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveBrand ");
+            //Save brand
+            Brand brand = brandService.saveData(brandModel.toEntity());
+            response.setData(brand);
             return response;
         } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " saveItem : {}", ae.getMessage());
+            LOG.error(Const.LOGGING_ERROR + " saveBrand : {}", ae.getMessage());
             response.buildError(ae);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " saveItem ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " saveBrand ");
         }
     }
 
     @RequestMapping(value = URL.GET_ACTION, method = RequestMethod.GET)
-    public ResponseModel<Model> getModel(@PathVariable(value = Const.PATH_ID) Integer id) {
-        ResponseModel<Model> response = new ResponseModel<>();
+    public ResponseModel<Brand> getModel(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<Brand> response = new ResponseModel<>();
         try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getModel ");
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getBrand ");
             //Get item
-            Model item = modelService.getById(id);
-            response.setData(item);
+            Brand brand = brandService.getById(id);
+            response.setData(brand);
             return response;
         } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " getModel : {}", ae.getMessage());
+            LOG.error(Const.LOGGING_ERROR + " getBrand : {}", ae.getMessage());
             response.buildError(ae);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " getModel ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getBrand ");
         }
     }
 
     @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
-    public ResponseModel<Model> updateModel(@PathVariable(value = Const.PATH_ID) Integer id,
-                                            @RequestBody @Valid ModelModel modelModel) {
-        ResponseModel<Model> response = new ResponseModel<>();
+    public ResponseModel<Brand> updateBrand(@PathVariable(value = Const.PATH_ID) Integer id,
+                                            @RequestBody @Valid BrandModel brandModel) {
+        ResponseModel<Brand> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
             //Update ite
-            Model model = modelService.updateModel(id, modelModel);
-            response.setData(model);
+            Brand brand = brandService.updateBrand(id, brandModel);
+            response.setData(brand);
             return response;
         } catch (ApplicationException ae) {
             LOG.error(Const.LOGGING_ERROR + " updateItem : {}", ae.getMessage());
@@ -88,21 +86,21 @@ public class ModelController {
     }
 
     @RequestMapping(value = URL.LIST_PAGING, method = RequestMethod.GET)
-    public ResponseModel<Page<Model>> listAll(
+    public ResponseModel<Page<Brand>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<Model>> response = new ResponseModel<>();
+        ResponseModel<Page<Brand>> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
             //List all
-            response.setData(modelService.listAll(page, size));
+            response.setData(brandService.listAll(page, size));
             return response;
         } catch (ApplicationException ex) {
-            LOG.error(Const.LOGGING_ERROR + "listByName: {}", ex.getMessage());
+            LOG.error(Const.LOGGING_ERROR + "listAll: {}", ex.getMessage());
             response.buildError(ex);
             return response;
         } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " listByName ");
+            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
         }
     }
 }

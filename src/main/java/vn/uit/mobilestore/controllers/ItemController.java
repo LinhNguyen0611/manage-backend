@@ -36,7 +36,7 @@ public class ItemController {
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveItem ");
             //Save item
-            Item item = itemService.saveData(itemModel.toEntity());
+            Item item = itemService.saveItem(itemModel.toEntity());
             response.setData(item);
             return response;
         } catch (ApplicationException ae) {
@@ -63,24 +63,6 @@ public class ItemController {
             return response;
         } finally {
             LOG.info(Const.LOGGING_CONTROLLER_END + " getItem ");
-        }
-    }
-
-    @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
-    public ResponseModel<Item> deleteItem(@PathVariable(value = Const.PATH_ID) Integer id) {
-        ResponseModel<Item> response = new ResponseModel<>();
-        try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " deleteItem ");
-            //Get item
-            Item item = itemService.deleteById(id);
-            response.setData(item);
-            return response;
-        } catch (ApplicationException ae) {
-            LOG.error(Const.LOGGING_ERROR + " deleteItem : {}", ae.getMessage());
-            response.buildError(ae);
-            return response;
-        } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " deleteItem ");
         }
     }
 

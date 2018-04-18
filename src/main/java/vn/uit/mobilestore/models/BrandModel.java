@@ -18,11 +18,11 @@ public class BrandModel {
     }
 
     public Brand toEntity() {
-        Brand branch = new Brand();
-        branch.setName(this.name);
-        branch.setCountry(this.country);
-        branch.setDescription(this.description);
-        return branch;
+        Brand brand = new Brand();
+        brand.setName(this.name);
+        brand.setCountry(this.country);
+        brand.setDescription(this.description);
+        return brand;
     }
 
     public String getName() {
