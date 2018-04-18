@@ -40,7 +40,12 @@ public class ModelService extends BaseService <ModelRepository, Model, Integer> 
 
     public Model updateModel(Integer id, ModelModel modelModel) {
         // Find item
-        Model model = repository.findOne(id);
+        Model model = this.getById(id);
+        // Validate brandID
+        Brand brand = brandRepository.findOne(modelModel.getBrandID());
+        if (brand == null){
+            throw new ApplicationException(MessageCode.ERROR_BRAND_ID_NOT_FOUND);
+        }
         // Update
         model = model.updateModel(modelModel);
         this.updateData(model);

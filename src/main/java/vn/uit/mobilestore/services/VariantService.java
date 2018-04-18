@@ -40,7 +40,12 @@ public class VariantService extends BaseService <VariantRepository, Variant, Int
 
     public Variant updateVariant(Integer id, VariantModel variantModel) {
         // Find item
-        Variant variant = repository.findOne(id);
+        Variant variant = this.getById(id);
+        //Validate ModelID
+        Model model = modelRepository.findOne(variantModel.getModelID());
+        if (model == null) {
+            throw new ApplicationException(MessageCode.ERROR_MODEL_ID_NOT_FOUND);
+        }
         // Update
         variant = variant.updateVariant(variantModel);
         this.updateData(variant);

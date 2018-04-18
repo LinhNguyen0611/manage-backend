@@ -43,7 +43,19 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
 
     public Item updateItem(Integer id, ItemModel itemModel) {
         // Find item
-        Item item = repository.findOne(id);
+        Item item = this.getById(id);
+        //Validate variantID and StockReceivingItem
+        Variant variant = variantRepository.findOne(itemModel.getVariantId());
+        if (variant == null) {
+            throw new ApplicationException(MessageCode.ERROR_VARIANT_ID_NOT_FOUND);
+        }
+        if (itemModel.getStockReceivingItemId() != null) {
+            StockReceivingItem stockReceivingItem =
+                    stockReceivingItemRepository.findOne(itemModel.getStockReceivingItemId());
+            if (stockReceivingItem == null){
+                throw new ApplicationException(MessageCode.ERROR_STOCKRECEIVINGITEM_ID_NOT_FOUND);
+            }
+        }
         // Update
         item = item.updateItem(itemModel);
         this.updateData(item);
@@ -52,13 +64,14 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
 
     public Item saveItem(Item item) {
         Variant variant = variantRepository.findOne(item.getVariantId());
-        StockReceivingItem stockReceivingItem = stockReceivingItemRepository.findOne(item.getStockReceivingItemId());
-        if (variant == null){
+        if (variant == null) {
             throw new ApplicationException(MessageCode.ERROR_VARIANT_ID_NOT_FOUND);
         }
-
-        if (stockReceivingItem == null){
-            throw new ApplicationException(MessageCode.ERROR_STOCKRECEIVINGITEM_ID_NOT_FOUND);
+        if (item.getStockReceivingItemId() != null) {
+            StockReceivingItem stockReceivingItem = stockReceivingItemRepository.findOne(item.getStockReceivingItemId());
+            if (stockReceivingItem == null){
+                throw new ApplicationException(MessageCode.ERROR_STOCKRECEIVINGITEM_ID_NOT_FOUND);
+            }
         }
         return this.saveData(item);
     }
