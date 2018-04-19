@@ -31,13 +31,6 @@ public class ModelService extends BaseService <ModelRepository, Model, Integer> 
     @Autowired
     BrandRepository brandRepository;
 
-    public Page<Model> listAll(Integer page, Integer size) {
-        PageRequest pageRequest = new PageRequest(page, size);
-        //List all
-        Page<Model> models = findAll(pageRequest);
-        return models;
-    }
-
     public Model updateModel(Integer id, ModelModel modelModel) {
         // Find item
         Model model = this.getById(id);

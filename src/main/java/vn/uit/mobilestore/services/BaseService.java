@@ -1,5 +1,6 @@
 package vn.uit.mobilestore.services;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.BaseEntity;
@@ -19,7 +20,7 @@ import java.io.Serializable;
  * @param <E>  the type parameter
  * @param <ID> the type parameter
  */
-abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity, ID extends Serializable>{
+abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity, ID extends Serializable> implements IService<R, E, ID> {
     /**
      * The Repository.
      */
@@ -41,6 +42,7 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      * @param entity Entity to add
      * @return Stored entity
      */
+    @Override
     public E saveData(E entity) {
         entity = repository.saveAndFlush(entity);
         return entity;
@@ -52,6 +54,7 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      * @param entity Entity to update
      * @return Stored entity
      */
+    @Override
     public E updateData(E entity) {
         entity = repository.saveAndFlush(entity);
         return entity;
@@ -63,6 +66,7 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      * @param id ID of entity
      * @return Stored entity
      */
+    @Override
     public E getById(ID id) {
         E entity = repository.findOne(id);
         if (entity == null) {
@@ -77,10 +81,12 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      * @param pageable Pageable term
      * @return List all entity by sort term
      */
+    @Override
     public Page<E> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
+    @Override
     public E deleteById(ID id) {
         E entity = repository.findOne(id);
         if (entity == null) {
@@ -88,5 +94,12 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
         }
         repository.delete(entity);
         return entity;
+    }
+
+    @Override
+    public Page<E> listAll(Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+        //List all
+        return findAll(pageRequest);
     }
 }

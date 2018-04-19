@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Where;
 import vn.uit.mobilestore.models.BrandModel;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import java.util.List;
  * Created by Linh Nguyen on 4/9/2018.
  */
 @Entity
+@Where(clause = "is_active=1")
 @Table(name = "brand")
 public class Brand extends BaseEntity {
 
@@ -26,6 +29,7 @@ public class Brand extends BaseEntity {
     @Column(name = "Description", nullable = false)
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "brand")
     private List<Model> modelList;
 

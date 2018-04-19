@@ -33,14 +33,6 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     @Autowired
     StockReceivingItemRepository stockReceivingItemRepository;
 
-    public Page<Item> listAll(Integer page, Integer size) {
-        PageRequest pageRequest = new PageRequest(page, size);
-        //List all
-        Page<Item> items = findAll(pageRequest);
-        return items;
-    }
-
-
     public Item updateItem(Integer id, ItemModel itemModel) {
         // Find item
         Item item = this.getById(id);

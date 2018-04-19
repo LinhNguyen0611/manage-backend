@@ -20,7 +20,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(URL.VARIANT_CONTROLLER)
-public class VariantController {
+public class VariantController extends AbstractController <VariantService, Variant>{
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private final VariantService variantService;
@@ -101,5 +101,9 @@ public class VariantController {
         } finally {
             LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
         }
+    }
+    @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
+    public ResponseModel<String> deleteVariant(@PathVariable(value = Const.PATH_ID) Integer id) {
+        return this.deleteOne(id, LOG, variantService);
     }
 }

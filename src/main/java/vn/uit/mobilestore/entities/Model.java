@@ -2,6 +2,7 @@ package vn.uit.mobilestore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.annotations.Where;
 import vn.uit.mobilestore.models.ItemModel;
 import vn.uit.mobilestore.models.ModelModel;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by Linh Nguyen on 4/1/2018.
  */
 @Entity
+@Where(clause = "is_active=1")
 @Table (name = "Model")
 public class Model extends BaseEntity{
     @Id
@@ -41,6 +43,7 @@ public class Model extends BaseEntity{
     @JoinColumn(name = "BrandID", insertable = false, updatable = false)
     private Brand brand;
 
+    @JsonIgnore
     @OneToMany (mappedBy = "model")
     private List<Variant> variantList;
 

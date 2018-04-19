@@ -31,13 +31,6 @@ public class VariantService extends BaseService <VariantRepository, Variant, Int
     @Autowired
     ModelRepository modelRepository;
 
-    public Page<Variant> listAll(Integer page, Integer size) {
-        PageRequest pageRequest = new PageRequest(page, size);
-        //List all
-        Page<Variant> variants = findAll(pageRequest);
-        return variants;
-    }
-
     public Variant updateVariant(Integer id, VariantModel variantModel) {
         // Find item
         Variant variant = this.getById(id);
