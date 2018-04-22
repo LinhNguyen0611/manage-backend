@@ -1,5 +1,6 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.Where;
 import vn.uit.mobilestore.models.ItemModel;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
  * Class detail
  */
 @Entity
+@Where(clause = "is_active=1")
 @Table(name = "item")
 public class Item extends BaseEntity {
 

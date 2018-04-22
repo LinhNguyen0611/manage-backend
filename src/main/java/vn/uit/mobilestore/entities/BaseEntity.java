@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
@@ -22,6 +24,17 @@ public class BaseEntity {
      */
     @Column(name = "modified_date")
     protected Date modifiedDate;
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    @Column(name = "is_active")
+    protected Boolean isActive = true;
 
 
     /**

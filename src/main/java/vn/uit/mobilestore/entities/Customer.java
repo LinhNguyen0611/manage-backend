@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
  * Created by Linh Nguyen on 4/13/2018.
  */
 @Entity
+@Where(clause = "is_active=1")
 @Table(name = "Customer")
 public class Customer extends BaseEntity {
     @Id

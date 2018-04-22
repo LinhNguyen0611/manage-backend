@@ -1,10 +1,14 @@
 package vn.uit.mobilestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Where(clause = "is_active=1")
 @Table(name = "StockReceivingOrder")
 public class StockReceivingOrder extends BaseEntity {
     @Id
@@ -22,6 +26,7 @@ public class StockReceivingOrder extends BaseEntity {
     @JoinColumn(name = "SupplierID", insertable = false, updatable = false)
     private Supplier supplier;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "stockReceivingOrder")
     private List<StockReceivingItem> stockReceivingItemList;
 

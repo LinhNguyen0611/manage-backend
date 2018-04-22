@@ -25,13 +25,6 @@ public class BrandService extends BaseService<BrandRepository,Brand, Integer> {
         super(repository);
     }
 
-    public Page<Brand> listAll(Integer page, Integer size) {
-        PageRequest pageRequest = new PageRequest(page, size);
-        //List all
-        Page<Brand> brands = findAll(pageRequest);
-        return brands;
-    }
-
     public Brand updateBrand(Integer id, BrandModel brandModel) {
         // Find item
         Brand brand = repository.findOne(id);

@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Where;
 import vn.uit.mobilestore.models.VariantModel;
 
 import javax.persistence.*;
@@ -9,8 +11,9 @@ import java.util.List;
  * Created by Linh Nguyen on 4/9/2018.
  */
 @Entity
+@Where(clause = "is_active=1")
 @Table(name = "variant")
-public class Variant extends BaseEntity{
+public class Variant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +36,11 @@ public class Variant extends BaseEntity{
     private Long pricesold;
 
     @ManyToOne
-    @JoinColumn (name = "ModelID", insertable = false, updatable = false)
+    @JoinColumn(name = "ModelID", insertable = false, updatable = false)
     private Model model;
 
-    @OneToMany (mappedBy = "variant")
+    @JsonIgnore
+    @OneToMany(mappedBy = "variant")
     private List<Item> itemList;
 
     public Variant() {

@@ -22,7 +22,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(URL.MODEL_CONTROLLER)
-public class ModelController {
+public class ModelController extends AbstractController<ModelService, Model> {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private final ModelService modelService;
@@ -104,5 +104,10 @@ public class ModelController {
         } finally {
             LOG.info(Const.LOGGING_CONTROLLER_END + " listByName ");
         }
+    }
+
+    @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
+    public ResponseModel<String> deleteModel(@PathVariable(value = Const.PATH_ID) Integer id) {
+        return this.deleteOne(id, LOG, modelService);
     }
 }

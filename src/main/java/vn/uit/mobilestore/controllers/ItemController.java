@@ -20,7 +20,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(URL.PRODUCT_CONTROLLER)
-public class ItemController {
+public class ItemController extends AbstractController<ItemService, Item> {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private final ItemService itemService;
@@ -89,18 +89,11 @@ public class ItemController {
     public ResponseModel<Page<Item>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<Item>> response = new ResponseModel<>();
-        try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
-            //List all
-            response.setData(itemService.listAll(page, size));
-            return response;
-        } catch (ApplicationException ex) {
-            LOG.error(Const.LOGGING_ERROR + "listByName: {}", ex.getMessage());
-            response.buildError(ex);
-            return response;
-        } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " listByName ");
-        }
+        return this.listAll(size, page, LOG, itemService);
+    }
+
+    @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
+    public ResponseModel<String> deleteItem(@PathVariable(value = Const.PATH_ID) Integer id) {
+        return this.deleteOne(id, LOG, itemService);
     }
 }
