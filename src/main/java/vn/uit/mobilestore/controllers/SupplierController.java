@@ -15,6 +15,7 @@ import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.SupplierModel;
 import vn.uit.mobilestore.responses.ResponseModel;
 import vn.uit.mobilestore.services.SupplierService;
+import vn.uit.mobilestore.models.ComplexReturnModel.SupplierReturnModel;
 
 
 @RestController
@@ -37,20 +38,7 @@ public class SupplierController extends AbstractController<SupplierService, Supp
     public ResponseModel<Page<Supplier>> getSuppliers(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<Supplier>> response = new ResponseModel<>();
-        try {
-            //List all Supplier
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
-            Page<Supplier> suppliers = supplierService.listAll(page, size);
-            response.setData(suppliers);
-            return response;
-        } catch (ApplicationException applicationException) {
-            LOG.error(Const.LOGGING_ERROR + "listAll: {}", applicationException.getMessage());
-            response.buildError(applicationException);
-            return response;
-        } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
-        }
+        return this.listAll(size, page, LOG, supplierService);
     }
 
     // Add Supplier
@@ -113,5 +101,24 @@ public class SupplierController extends AbstractController<SupplierService, Supp
     @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
     public ResponseModel<String> deleteBrand(@PathVariable(value = Const.PATH_ID) Integer id) {
         return this.deleteOne(id, LOG, supplierService);
+    }
+
+    // Test
+    @RequestMapping(value = URL.GET_ACTION + "/getExtraInfo", method = RequestMethod.GET)
+    public ResponseModel<SupplierReturnModel> getExtraSupplierById(@PathVariable(value = Const.PATH_ID) Integer id) {
+        ResponseModel<SupplierReturnModel> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getExtraSupplierById ");
+            //Get supplier by Id
+            Supplier supplier = supplierService.getById(id);
+            response.setData(SupplierReturnModel.create(supplier));
+            return response;
+        } catch (ApplicationException applicationException) {
+            LOG.error(Const.LOGGING_ERROR + " getExtraSupplierById : {}", applicationException.getMessage());
+            response.buildError(applicationException);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getExtraSupplierById ");
+        }
     }
 }

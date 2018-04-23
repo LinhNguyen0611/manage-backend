@@ -42,5 +42,7 @@ public interface URL {
     String ROLE_CONTROLLER = "role";
 
     String SUPPLIER_CONTROLLER = "supplier";
+
+    String STOCK_RECEIVING_ORDER = "stockReceivingOrder";
 }
 

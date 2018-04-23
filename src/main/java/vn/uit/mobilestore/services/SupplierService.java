@@ -43,5 +43,11 @@ public class SupplierService extends BaseService<SupplierRepository, Supplier, I
         return supplier;
     }
 
+    public Supplier getExtraInfoById(Integer Id) {
+        Supplier supplier = this.getById(Id);
+
+        return supplier;
+    }
+
     //CRUD method is provided by Base Service. Add another method as needed
 }
