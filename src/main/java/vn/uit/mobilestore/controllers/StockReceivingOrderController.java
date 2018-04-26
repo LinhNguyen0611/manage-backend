@@ -27,7 +27,7 @@ public class StockReceivingOrderController extends AbstractController<StockRecei
     private final SupplierService supplierService;
 
 
-    // SupplierController Constructor
+    // StockReceivingOrderController Constructor
     @Autowired
     public StockReceivingOrderController(StockReceivingOrderService stockReceivingOrderService, SupplierService supplierService) {
         this.stockReceivingOrderService = stockReceivingOrderService;
@@ -103,7 +103,7 @@ public class StockReceivingOrderController extends AbstractController<StockRecei
 
     // Delete stockReceivingOrder by Id
     @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
-    public ResponseModel<String> deleteBrand(@PathVariable(value = Const.PATH_ID) Integer id) {
+    public ResponseModel<String> deleteStockReceivingOrder(@PathVariable(value = Const.PATH_ID) Integer id) {
         return this.deleteOne(id, LOG, stockReceivingOrderService);
     }
 

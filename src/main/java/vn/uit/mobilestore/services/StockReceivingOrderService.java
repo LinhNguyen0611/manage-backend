@@ -56,7 +56,7 @@ public class StockReceivingOrderService extends BaseService<StockReceivingOrderR
         if (stockReceivingOrder == null) {
             throw new ApplicationException(MessageCode.ERROR_STOCK_RECEIVING_ORDER_ID_NOT_FOUND);
         }
-        this.checkSupplierValid(stockReceivingOrder.getSupplierID());
+        this.checkSupplierValid(stockReceivingOrderModel.getSupplierID());
 
         // update stockReceivingOrder object
         stockReceivingOrder = stockReceivingOrder.updateStockReceivingOrder(stockReceivingOrderModel);

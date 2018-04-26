@@ -20,6 +20,9 @@ public enum MessageCode {
     // 61xx StockReceivingOrder Error
     ERROR_STOCK_RECEIVING_ORDER_ID_NOT_FOUND(6100, "Stock Receiving Order Id not found"),
 
+    // 32xx StockReceivingItem Error
+    ERROR_STOCK_RECEIVING_ITEM_ID_NOT_FOUND(6100, "Stock Receiving Item Id not found"),
+
     //Other error
     ERROR_OTHER(9999, "Unexpected error");
 
