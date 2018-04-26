@@ -35,6 +35,7 @@ public class Variant extends BaseEntity {
     @Column(name = "PriceSold", nullable = false)
     private Long pricesold;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ModelID", insertable = false, updatable = false)
     private Model model;

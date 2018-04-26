@@ -14,4 +14,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     // Additional repository method. The insert, get list, get one, update, delete is provided
     @Query("SELECT i FROM Item i WHERE i.itemId = :id")
     Item getItem(@Param("id") Integer id);
+
+    Item findByItemId(Integer itemId);
 }

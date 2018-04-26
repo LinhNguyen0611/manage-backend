@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.URL;
+import vn.uit.mobilestore.entities.Item;
 import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.VariantModel;
@@ -65,6 +66,28 @@ public class VariantController extends AbstractController <VariantService, Varia
         }
     }
 
+
+    @RequestMapping(value = URL.GET_LIST_ACTION, method = RequestMethod.GET)
+    public ResponseModel<Page<Item>> getListItem(
+            @PathVariable(value = Const.PATH_ID) Integer id,
+            @RequestParam(value = Const.PATH_PAGE, defaultValue = Const.DEFAULT_PAGE) Integer page,
+            @RequestParam(value = Const.PATH_SIZE, defaultValue = Const.DEFAULT_SIZE) Integer size) {
+        ResponseModel<Page<Item>> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getListItem [page={}],[size = {}] ", page, size);
+            //List all
+            response.setData(variantService.listItemByVariantId(id, page, size));
+            return response;
+        } catch (ApplicationException ex) {
+            LOG.error(Const.LOGGING_ERROR + "getListItem: {}", ex.getMessage());
+            response.buildError(ex);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
+        }
+    }
+
+
     @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
     public ResponseModel<Variant> updateVariant(@PathVariable(value = Const.PATH_ID) Integer id,
                                               @RequestBody @Valid VariantModel variantModel) {
@@ -88,19 +111,7 @@ public class VariantController extends AbstractController <VariantService, Varia
     public ResponseModel<Page<Variant>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<Variant>> response = new ResponseModel<>();
-        try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
-            //List all
-            response.setData(variantService.listAll(page, size));
-            return response;
-        } catch (ApplicationException ex) {
-            LOG.error(Const.LOGGING_ERROR + "listAll: {}", ex.getMessage());
-            response.buildError(ex);
-            return response;
-        } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
-        }
+        return this.listAll(size, page, LOG, variantService);
     }
     @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
     public ResponseModel<String> deleteVariant(@PathVariable(value = Const.PATH_ID) Integer id) {

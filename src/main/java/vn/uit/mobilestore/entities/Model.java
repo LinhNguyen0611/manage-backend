@@ -39,6 +39,7 @@ public class Model extends BaseEntity{
     @Column(name = "Type")
     private Integer type;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "BrandID", insertable = false, updatable = false)
     private Brand brand;

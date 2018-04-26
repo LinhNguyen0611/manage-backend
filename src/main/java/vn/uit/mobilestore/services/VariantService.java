@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.constants.MessageCode;
+import vn.uit.mobilestore.entities.Item;
 import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.entities.Model;
-import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.VariantModel;
 import vn.uit.mobilestore.repositories.ModelRepository;
@@ -52,5 +52,11 @@ public class VariantService extends BaseService <VariantRepository, Variant, Int
             throw new ApplicationException(MessageCode.ERROR_MODEL_ID_NOT_FOUND);
         }
         return this.saveData(variant);
+    }
+
+    public Page<Item> listItemByVariantId(Integer id, Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+
+        return repository.listItemByVariantId(id, pageRequest);
     }
 }
