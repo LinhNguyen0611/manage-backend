@@ -20,6 +20,8 @@ public interface URL {
      * The constant GET_ACTION.
      */
     String GET_ACTION = "/get/{id}";
+
+    String GET_LIST_ACTION = "/list-by-id/{id}";
     /**
      * The constant LIST_PAGING.
      */
@@ -40,5 +42,7 @@ public interface URL {
     String USER_CONTROLLER = "users";
 
     String ROLE_CONTROLLER = "role";
+
+    String UPLOAD_CONTROLLER = "upload";
 }
 

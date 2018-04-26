@@ -9,6 +9,8 @@ public enum MessageCode {
     //User or request object not found
     ERROR_NOT_FOUND(404, "Not found"),
 
+    UPLOAD_FAILED(501, "Fail to upload file"),
+
     ERROR_MODEL_ID_NOT_FOUND(4041, "Model ID not found"),
     ERROR_BRAND_ID_NOT_FOUND(4042, "Brand ID not found"),
     ERROR_VARIANT_ID_NOT_FOUND(4043, "Variant ID not found"),

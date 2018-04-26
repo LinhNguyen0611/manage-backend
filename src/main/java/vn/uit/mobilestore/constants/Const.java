@@ -8,4 +8,8 @@ public interface Const {
     String PATH_ID = "id";
     String PATH_SIZE = "size";
     String PATH_PAGE = "page";
+    String DEFAULT_PAGE = "0";
+    String DEFAULT_SIZE = "10";
+
+    String S3_BUCKET_KEY = "aws.s3.bucketname";
 }
