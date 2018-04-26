@@ -24,6 +24,7 @@ public class StockReceivingItem extends BaseEntity {
     @Column(name = "StockReceivingOrderID", nullable = false)
     private Integer stockReceivingOrderID;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "StockReceivingOrderID", insertable = false, updatable = false)
     private StockReceivingOrder stockReceivingOrder;

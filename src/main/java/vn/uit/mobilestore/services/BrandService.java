@@ -5,10 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.entities.Brand;
-import vn.uit.mobilestore.entities.Item;
+import vn.uit.mobilestore.entities.Model;
 import vn.uit.mobilestore.models.BrandModel;
 import vn.uit.mobilestore.repositories.BrandRepository;
-import vn.uit.mobilestore.repositories.ItemRepository;
 
 /**
  * Created by Linh Nguyen on 4/9/2018.
@@ -32,5 +31,11 @@ public class BrandService extends BaseService<BrandRepository,Brand, Integer> {
         brand = brand.updateBrand(brandModel);
         this.updateData(brand);
         return brand;
+    }
+
+    public Page<Model> listModelByBrandId(Integer id, Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+
+        return repository.listModelByBrandId(id, pageRequest);
     }
 }

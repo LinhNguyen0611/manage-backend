@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.URL;
 import vn.uit.mobilestore.entities.Brand;
+import vn.uit.mobilestore.entities.Model;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.BrandModel;
 import vn.uit.mobilestore.responses.ResponseModel;
@@ -63,6 +64,26 @@ public class BrandController extends AbstractController<BrandService, Brand> {
             return response;
         } finally {
             LOG.info(Const.LOGGING_CONTROLLER_END + " getBrand ");
+        }
+    }
+
+    @RequestMapping(value = URL.GET_LIST_ACTION, method = RequestMethod.GET)
+    public ResponseModel<Page<Model>> getListModel(
+            @PathVariable(value = Const.PATH_ID) Integer id,
+            @RequestParam(value = Const.PATH_PAGE, defaultValue = Const.DEFAULT_PAGE) Integer page,
+            @RequestParam(value = Const.PATH_SIZE, defaultValue = Const.DEFAULT_SIZE) Integer size) {
+        ResponseModel<Page<Model>> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getListModel [page={}],[size = {}] ", page, size);
+            //List all
+            response.setData(brandService.listModelByBrandId(id, page, size));
+            return response;
+        } catch (ApplicationException ex) {
+            LOG.error(Const.LOGGING_ERROR + "getListModel: {}", ex.getMessage());
+            response.buildError(ex);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
         }
     }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.Brand;
 import vn.uit.mobilestore.entities.Model;
+import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.ModelModel;
 import vn.uit.mobilestore.repositories.BrandRepository;
@@ -52,5 +53,11 @@ public class ModelService extends BaseService <ModelRepository, Model, Integer> 
         }
         return this.saveData(model);
 
+    }
+
+    public Page<Variant> listVariantByModelId(Integer id, Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+
+        return repository.listVariantByModelId(id, pageRequest);
     }
 }
