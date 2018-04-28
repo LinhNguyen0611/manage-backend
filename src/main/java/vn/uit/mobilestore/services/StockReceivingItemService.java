@@ -8,13 +8,20 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 import vn.uit.mobilestore.constants.MessageCode;
+
+import vn.uit.mobilestore.entities.Item;
 import vn.uit.mobilestore.entities.StockReceivingItem;
 import vn.uit.mobilestore.entities.StockReceivingOrder;
+
 import vn.uit.mobilestore.exceptions.ApplicationException;
+
+import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingItemBindingModel;
 import vn.uit.mobilestore.models.StockReceivingItemModel;
+
 import vn.uit.mobilestore.repositories.StockReceivingItemRepository;
 import vn.uit.mobilestore.repositories.StockReceivingOrderRepository;
-import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingItemBindingModel;
+
+import vn.uit.mobilestore.services.ItemService;
 
 @Service
 public class StockReceivingItemService extends BaseService<StockReceivingItemRepository, StockReceivingItem, Integer> {
@@ -29,8 +36,13 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
     StockReceivingOrderRepository stockReceivingOrderRepository;
 
     @Autowired
-    StockReceivingItemService(StockReceivingItemRepository repository) {
+    ItemService itemService;
+
+    @Autowired
+    StockReceivingItemService(ItemService itemService, StockReceivingItemRepository repository) {
         super(repository);
+
+        this.itemService = itemService;
     }
 
     public Page<StockReceivingItem> listAll(Integer page, Integer size) {
@@ -79,9 +91,12 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
         return this.saveData(stockReceivingItem);
     }
 
+    // Begin StockReceivingOrder feature methods
     // Add stockReceivingItem List
-    public List<StockReceivingItem> saveStockReceivingItemList (List<StockReceivingItemBindingModel> stockReceivingItemBindingModelList,
-                                            Integer stockReceivingOrderID) {
+    public List<StockReceivingItem> saveStockReceivingItemList (
+            List<StockReceivingItemBindingModel> stockReceivingItemBindingModelList,
+            Integer stockReceivingOrderID
+    ) {
         // Create an abstract stockReceivingItemList
         List<StockReceivingItem> stockReceivingItemList = new ArrayList<>();
 
@@ -90,7 +105,7 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
             StockReceivingItemBindingModel stockReceivingItemBindingModel = stockReceivingItemBindingModelList.get(index);
 
             // Save stockReceivingItem data and return the saved object
-            StockReceivingItem stockReceivingItem = this.saveStockReceivingItem(stockReceivingItemBindingModel.toEntity(stockReceivingOrderID));
+            StockReceivingItem stockReceivingItem = this.saveStockReceivingItemInfo(stockReceivingItemBindingModel.toEntity(stockReceivingOrderID), stockReceivingItemBindingModel);
 
             // Add into stockReceivingItemList
             stockReceivingItemList.add(stockReceivingItem);
@@ -98,4 +113,20 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
 
         return stockReceivingItemList;
     }
+
+    public StockReceivingItem saveStockReceivingItemInfo(
+            StockReceivingItem stockReceivingItem,
+            StockReceivingItemBindingModel stockReceivingItemBindingModel
+    ) {
+        // Save stockReceivingItem data and return the saved object
+        StockReceivingItem stockReceivingItemObject = this.saveStockReceivingItem(stockReceivingItem);
+        List<Item> itemList = itemService.saveItemList(
+                stockReceivingItemBindingModel.getItemList(),
+                stockReceivingItemObject.getStockReceivingItemID()
+        );
+
+        return stockReceivingItemObject;
+    }
+
+    // End StockReceivingOrder feature methods
 }

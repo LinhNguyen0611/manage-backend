@@ -8,15 +8,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import vn.uit.mobilestore.constants.MessageCode;
+
 import vn.uit.mobilestore.entities.StockReceivingOrder;
 import vn.uit.mobilestore.entities.Supplier;
+import vn.uit.mobilestore.entities.StockReceivingItem;
+
 import vn.uit.mobilestore.models.StockReceivingOrderModel;
+
 import vn.uit.mobilestore.exceptions.ApplicationException;
+
 import vn.uit.mobilestore.repositories.StockReceivingOrderRepository;
 import vn.uit.mobilestore.repositories.SupplierRepository;
+
 import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingOrderBindingModel;
+
 import vn.uit.mobilestore.services.StockReceivingItemService;
-import vn.uit.mobilestore.entities.StockReceivingItem;
 
 
 @Service
@@ -87,19 +93,18 @@ public class StockReceivingOrderService extends BaseService<StockReceivingOrderR
         return this.saveData(stockReceivingOrder);
     }
 
-    // Add stockReceivingOrder all Info
+    // Begin StockReceivingOrder feature methods
     public StockReceivingOrder parseStockReceivingOrderAllInfo(StockReceivingOrderBindingModel stockReceivingOrderBindingModel) {
         StockReceivingOrder stockReceivingOrder = this.saveStockReceivingOrder(stockReceivingOrderBindingModel.toEntity());
 
         // Save List stockReceivingItem
-        List<StockReceivingItem> stockReceivingItemList = this.stockReceivingItemService.saveStockReceivingItemList
-                (stockReceivingOrderBindingModel.getStockReceivingItemList(), stockReceivingOrder.getStockReceivingOrderID());
+        List<StockReceivingItem> stockReceivingItemList = this.stockReceivingItemService.saveStockReceivingItemList(
+                stockReceivingOrderBindingModel.getStockReceivingItemList(),
+                stockReceivingOrder.getStockReceivingOrderID()
+        );
 
         return stockReceivingOrder;
     }
 
-//    public stockReceivingOrder saveStockReceivingOrderInfo(StockReceivingOrder stockReceivingOrder) {
-//
-//    }
-
+    // End StockReceiving feature methods
 }
