@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
+
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.StockReceivingItem;
 import vn.uit.mobilestore.entities.StockReceivingOrder;
@@ -12,6 +14,7 @@ import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.StockReceivingItemModel;
 import vn.uit.mobilestore.repositories.StockReceivingItemRepository;
 import vn.uit.mobilestore.repositories.StockReceivingOrderRepository;
+import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingItemBindingModel;
 
 @Service
 public class StockReceivingItemService extends BaseService<StockReceivingItemRepository, StockReceivingItem, Integer> {
@@ -49,7 +52,7 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
         return stockReceivingOrder;
     }
 
-    // Update stockReceivingOrder by Id
+    // Update stockReceivingItem by Id
     public StockReceivingItem updateById (Integer stockReceivingItemId, StockReceivingItemModel stockReceivingItemModel) {
         // get stockReceivingOrder object and valid it
         StockReceivingItem stockReceivingItem = repository.findOne(stockReceivingItemId);
@@ -68,11 +71,31 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
         return stockReceivingItem;
     }
 
-    // Add stockReceivingOrder
+    // Add stockReceivingItem
     public StockReceivingItem saveStockReceivingItem (StockReceivingItem stockReceivingItem) {
         // Check is valid
         this.checkstockReceivingOrderValid(stockReceivingItem.getStockReceivingOrderID());
         // Save and return object
         return this.saveData(stockReceivingItem);
+    }
+
+    // Add stockReceivingItem List
+    public List<StockReceivingItem> saveStockReceivingItemList (List<StockReceivingItemBindingModel> stockReceivingItemBindingModelList,
+                                            Integer stockReceivingOrderID) {
+        // Create an abstract stockReceivingItemList
+        List<StockReceivingItem> stockReceivingItemList = new ArrayList<>();
+
+        for (int index = 0; index < stockReceivingItemBindingModelList.size(); index++) {
+            // Get Element in List StockReceivingItemBindingModel
+            StockReceivingItemBindingModel stockReceivingItemBindingModel = stockReceivingItemBindingModelList.get(index);
+
+            // Save stockReceivingItem data and return the saved object
+            StockReceivingItem stockReceivingItem = this.saveStockReceivingItem(stockReceivingItemBindingModel.toEntity(stockReceivingOrderID));
+
+            // Add into stockReceivingItemList
+            stockReceivingItemList.add(stockReceivingItem);
+        }
+
+        return stockReceivingItemList;
     }
 }

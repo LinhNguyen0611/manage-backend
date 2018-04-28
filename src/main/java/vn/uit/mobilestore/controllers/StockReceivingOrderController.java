@@ -16,6 +16,7 @@ import vn.uit.mobilestore.models.StockReceivingOrderModel;
 import vn.uit.mobilestore.responses.ResponseModel;
 import vn.uit.mobilestore.services.StockReceivingOrderService;
 import vn.uit.mobilestore.services.SupplierService;
+import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingOrderBindingModel;
 
 
 @RestController
@@ -105,6 +106,26 @@ public class StockReceivingOrderController extends AbstractController<StockRecei
     @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
     public ResponseModel<String> deleteStockReceivingOrder(@PathVariable(value = Const.PATH_ID) Integer id) {
         return this.deleteOne(id, LOG, stockReceivingOrderService);
+    }
+
+    // Extra function
+    // Add stockReceivingOrder with all info
+    @RequestMapping(value = URL.STOCK_RECEIVING_ORDER_INFO + URL.ADD_ACTION, method = RequestMethod.POST)
+    public ResponseModel<StockReceivingOrderBindingModel> saveStockReceivingOrderInfo(@RequestBody @Valid StockReceivingOrderBindingModel stockReceivingOrderBindingModel) {
+        ResponseModel<StockReceivingOrderBindingModel> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveStockReceivingOrderInfo ");
+            // Save StockReceivingOder
+            StockReceivingOrder stockReceivingOrder = stockReceivingOrderService.parseStockReceivingOrderAllInfo(stockReceivingOrderBindingModel);
+            response.setData(stockReceivingOrderBindingModel);
+            return response;
+        } catch (ApplicationException applicationException) {
+            LOG.error(Const.LOGGING_ERROR + " saveStockReceivingOrderInfo : {}", applicationException.getMessage());
+            response.buildError(applicationException);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " saveStockReceivingOrderInfo ");
+        }
     }
 
 }
