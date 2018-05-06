@@ -21,7 +21,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(URL.VARIANT_CONTROLLER)
-public class VariantController extends AbstractController <VariantService, Variant>{
+public class VariantController extends AbstractController<VariantService, Variant> {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private final VariantService variantService;
@@ -30,13 +30,15 @@ public class VariantController extends AbstractController <VariantService, Varia
     public VariantController(VariantService variantService) {
         this.variantService = variantService;
     }
+
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
     public ResponseModel<Variant> saveVariant(@RequestBody @Valid VariantModel variantModel) {
         ResponseModel<Variant> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveVariant ");
             //Save variant - create method in service to validate
-            Variant variant = variantService.saveVariant(variantModel.toEntity());
+            Variant variant = variantService.saveVariant(variantModel);
+            variant = variantService.getById(variant.getVariantId());
             response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
@@ -90,12 +92,13 @@ public class VariantController extends AbstractController <VariantService, Varia
 
     @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
     public ResponseModel<Variant> updateVariant(@PathVariable(value = Const.PATH_ID) Integer id,
-                                              @RequestBody @Valid VariantModel variantModel) {
+                                                @RequestBody @Valid VariantModel variantModel) {
         ResponseModel<Variant> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
             //Update ite
             Variant variant = variantService.updateVariant(id, variantModel);
+            variant = variantService.getById(variant.getVariantId());
             response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
@@ -113,6 +116,7 @@ public class VariantController extends AbstractController <VariantService, Varia
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
         return this.listAll(size, page, LOG, variantService);
     }
+
     @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
     public ResponseModel<String> deleteVariant(@PathVariable(value = Const.PATH_ID) Integer id) {
         return this.deleteOne(id, LOG, variantService);
