@@ -40,7 +40,7 @@ public class Model extends BaseEntity{
     private Integer type;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "BrandID", insertable = false, updatable = false)
     private Brand brand;
 

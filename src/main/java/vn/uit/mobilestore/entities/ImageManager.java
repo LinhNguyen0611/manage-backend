@@ -23,7 +23,7 @@ public class ImageManager {
     private Integer variantID;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "VariantID", insertable = false, updatable =  false)
     private Variant variant;
 

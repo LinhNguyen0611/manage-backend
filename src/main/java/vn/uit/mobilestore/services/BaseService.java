@@ -2,6 +2,7 @@ package vn.uit.mobilestore.services;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.BaseEntity;
 import vn.uit.mobilestore.exceptions.ApplicationException;
@@ -44,6 +45,7 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      */
     @Override
     public E saveData(E entity) {
+        LOG.info(Const.LOGGING_SERVICE_BEGIN + " saveData");
         entity = repository.saveAndFlush(entity);
         return entity;
     }
@@ -56,6 +58,7 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      */
     @Override
     public E updateData(E entity) {
+        LOG.info(Const.LOGGING_SERVICE_BEGIN + " updateData");
         entity = repository.saveAndFlush(entity);
         return entity;
     }
@@ -68,6 +71,7 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
      */
     @Override
     public E getById(ID id) {
+        LOG.info(Const.LOGGING_SERVICE_BEGIN + " getById {}", id);
         E entity = repository.findOne(id);
         if (entity == null) {
             throw new ApplicationException(MessageCode.ERROR_NOT_FOUND);
@@ -98,8 +102,17 @@ abstract class BaseService<R extends JpaRepository<E, ID>, E extends BaseEntity,
 
     @Override
     public Page<E> listAll(Integer page, Integer size) {
+        LOG.info(Const.LOGGING_SERVICE_BEGIN + " listAll, page={},size={}", page, size);
         PageRequest pageRequest = new PageRequest(page, size);
         //List all
         return findAll(pageRequest);
+    }
+
+    @Override
+    public void deleteOne(ID id) {
+        LOG.info(Const.LOGGING_SERVICE_BEGIN + " deleteOne {}", id);
+        E entity = (E) this.getById(id);
+        entity.setActive(false);
+        this.saveData(entity);
     }
 }
