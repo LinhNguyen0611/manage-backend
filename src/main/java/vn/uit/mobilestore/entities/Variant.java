@@ -36,7 +36,7 @@ public class Variant extends BaseEntity {
     private Long pricesold;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ModelID", insertable = false, updatable = false)
     private Model model;
 

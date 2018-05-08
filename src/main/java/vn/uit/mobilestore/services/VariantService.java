@@ -1,9 +1,12 @@
 package vn.uit.mobilestore.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.ImageManager;
 import vn.uit.mobilestore.entities.Item;
@@ -16,6 +19,7 @@ import vn.uit.mobilestore.repositories.ModelRepository;
 import vn.uit.mobilestore.repositories.VariantRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,21 +27,25 @@ import java.util.List;
  */
 @Service
 public class VariantService extends BaseService <VariantRepository, Variant, Integer>{
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
     /**
      * Controller
      *
      * @param repository repository
      */
     @Autowired
-    VariantService(VariantRepository repository, ModelRepository modelRepository, ImageManagerRepository imageManagerRepository) {
+    VariantService(VariantRepository repository, ModelRepository modelRepository, ImageManagerRepository imageManagerRepository, ItemService itemService) {
         super(repository);
         this.modelRepository = modelRepository;
         this.imageManagerRepository = imageManagerRepository;
+        this.itemService = itemService;
     }
 
     private final ModelRepository modelRepository;
 
     private final ImageManagerRepository imageManagerRepository;
+
+    private final ItemService itemService;
 
     @Transactional
     public Variant updateVariant(Integer id, VariantModel variantModel) {
@@ -109,5 +117,20 @@ public class VariantService extends BaseService <VariantRepository, Variant, Int
         PageRequest pageRequest = new PageRequest(page, size);
 
         return repository.listItemByVariantId(id, pageRequest);
+    }
+
+    @Override
+    @Transactional
+    public void deleteOne(Integer id) {
+        LOG.info(Const.LOGGING_SERVICE_BEGIN + " deleteOne  {}", id);
+        Variant entity = this.getById(id);
+        // Delete child
+        List<Integer> ids = new ArrayList<>();
+        for (Item item : entity.getItemList()) {
+            ids.add(item.getItemId());
+        }
+        ids.forEach(itemService::deleteOne);
+        entity.setActive(false);
+        this.saveData(entity);
     }
 }

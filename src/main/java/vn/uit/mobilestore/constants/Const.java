@@ -2,6 +2,7 @@ package vn.uit.mobilestore.constants;
 
 public interface Const {
     String LOGGING_CONTROLLER_BEGIN = "--- BEGIN_CONTROLLER: ";
+    String LOGGING_SERVICE_BEGIN = "---- BEGIN_SERVICE: ";
     String LOGGING_CONTROLLER_END = "--- END_CONTROLLER: ";
     String LOGGING_ERROR = "*** ERROR:";
 

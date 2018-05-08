@@ -22,4 +22,6 @@ public interface IService<R extends JpaRepository<E, ID>, E extends BaseEntity, 
     E deleteById(ID id);
 
     Page<E> listAll(Integer page, Integer size);
+
+    void deleteOne(ID id);
 }

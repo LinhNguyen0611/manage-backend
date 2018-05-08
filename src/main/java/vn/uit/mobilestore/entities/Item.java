@@ -41,12 +41,12 @@ public class Item extends BaseEntity {
     private String status;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn (name = "VariantID", insertable = false, updatable = false)
     private Variant variant;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "StockReceivingItemID", insertable = false, updatable = false)
     private StockReceivingItem stockReceivingItem;
 

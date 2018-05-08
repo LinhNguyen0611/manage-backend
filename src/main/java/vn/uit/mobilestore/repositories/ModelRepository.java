@@ -16,4 +16,5 @@ import vn.uit.mobilestore.entities.Variant;
 public interface ModelRepository extends JpaRepository <Model, Integer> {
     @Query("SELECT m.variantList FROM Model m WHERE m.modelID = :modelId")
     Page<Variant> listVariantByModelId(@Param("modelId") Integer modelId, Pageable pageable);
+
 }
