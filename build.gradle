@@ -27,8 +27,8 @@ configurations {
 	providedRuntime
 }
 
-bootJar {
-	launchScript()
+springBoot {
+    executable = true
 }
 
 //AWS SDK
