@@ -80,5 +80,5 @@ configurations.all {
 }
 
 bootRepackage {
-	embeddedLaunchScriptProperties = [inlinedConfScript: 'JAVA_OPTS=-Dspring.profiles.active=ci']
+	embeddedLaunchScriptProperties = [inlinedConfScript: 'JAVA_OPTS=-Dspring.profiles.active=ci -Dserver.port=80']
 }
