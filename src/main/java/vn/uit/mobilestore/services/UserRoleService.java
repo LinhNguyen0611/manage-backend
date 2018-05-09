@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.entities.UserRole;
 import vn.uit.mobilestore.repositories.UserRoleRepository;
 
+import java.util.List;
+
 @Service
 public class UserRoleService extends BaseService<UserRoleRepository, UserRole, Integer> {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -16,10 +18,27 @@ public class UserRoleService extends BaseService<UserRoleRepository, UserRole, I
     @Autowired
     UserRoleService(UserRoleRepository repository) { super(repository);}
 
-    public Page<UserRole> listAllUsers(Integer page, Integer size){
-        PageRequest pageRequest = new PageRequest(page, size);
+    public boolean IsExist(Integer userID, Integer roleID) // TODO: not finshed yet
+    {
+        List<UserRole> uRoles =  repository.getRolesById(userID);
+        LOG.info("Role ID " + roleID + "UserID" + userID);
+        for (UserRole uRole : uRoles) {
+            LOG.info(uRole.getUserID().toString());
+        }
+        for(UserRole uRole : uRoles)
+        {
+            LOG.info("Role ID " + uRole.getRoleID() + "and roleID" + roleID);
+            if(uRole.getRoleID() == roleID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        Page<UserRole> users = findAll(pageRequest);
-        return users;
+    public List<UserRole> listAllUserRoles(){
+
+        List<UserRole> userRoles = repository.getRoles();
+        return userRoles;
     }
 }

@@ -7,17 +7,24 @@ import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.entities.Role;
 import vn.uit.mobilestore.repositories.RoleRepository;
 
+import java.util.List;
+
 @Service
 public class RoleService extends BaseService<RoleRepository, Role, Integer>{
 
     @Autowired
     RoleService(RoleRepository repository) {super(repository);}
 
-    public Page<Role> listAllRoles(Integer page, Integer size){
-        PageRequest pageRequest = new PageRequest(page, size);
-
-        Page<Role> roles = findAll(pageRequest);
+    public List<Role> listAllRoles(){
+        List<Role> roles = repository.getRoles();
         return roles;
+    }
+
+    public boolean isExist(String roleName)
+    {
+        if(repository.getRoleByName(roleName) != null)
+            return true;
+        return false;
     }
 
 }
