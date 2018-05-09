@@ -78,3 +78,7 @@ configurations.all {
     exclude group: 'ch.qos.logback', module: 'logback-classic'
     exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
 }
+
+bootRepackage {
+	embeddedLaunchScriptProperties SPRING_PROFILES_ACTIVE: 'ci'
+}
