@@ -24,7 +24,8 @@ public class StockReceivingOrder extends BaseEntity {
     @Column(name = "SupplierID", nullable = false)
     private Integer supplierID;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "SupplierID", insertable = false, updatable = false)
     private Supplier supplier;
 

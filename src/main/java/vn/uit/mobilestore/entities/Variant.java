@@ -35,13 +35,17 @@ public class Variant extends BaseEntity {
     @Column(name = "PriceSold", nullable = false)
     private Long pricesold;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ModelID", insertable = false, updatable = false)
     private Model model;
 
     @JsonIgnore
     @OneToMany(mappedBy = "variant")
     private List<Item> itemList;
+
+    @OneToMany(mappedBy = "variant", fetch = FetchType.EAGER)
+    private List<ImageManager> images;
 
     public Variant() {
     }
@@ -119,4 +123,11 @@ public class Variant extends BaseEntity {
         this.itemList = itemList;
     }
 
+    public List<ImageManager> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageManager> images) {
+        this.images = images;
+    }
 }

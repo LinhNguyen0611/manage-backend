@@ -25,9 +25,7 @@ abstract class AbstractController<Service extends IService, Entity extends BaseE
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " deleteOne ");
             //Get item
-            Entity entity = (Entity) service.getById(id);
-            entity.setActive(false);
-            service.saveData(entity);
+            service.deleteOne(id);
             response.setData("Success");
             return response;
         } catch (ApplicationException ae) {

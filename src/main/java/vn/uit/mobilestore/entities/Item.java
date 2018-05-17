@@ -1,5 +1,6 @@
 package vn.uit.mobilestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 import vn.uit.mobilestore.models.ItemModel;
 
@@ -39,11 +40,13 @@ public class Item extends BaseEntity {
     @Column(name = "Status", nullable = false)
     private String status;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn (name = "VariantID", insertable = false, updatable = false)
     private Variant variant;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "StockReceivingItemID", insertable = false, updatable = false)
     private StockReceivingItem stockReceivingItem;
 

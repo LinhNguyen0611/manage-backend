@@ -63,6 +63,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         JSONObject json = new JSONObject();
         json.put(HEADER_STRING, TOKEN_PREFIX + token);
         res.addHeader("Content-Type", "Application/json");
+        res.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        res.addHeader("Access-Control-Allow-Headers", "accept, authority");
+        res.addHeader("Access-Control-Allow-Credentials", "true");
+        res.addHeader("Access-Control-Allow-Origin","*");
         res.getWriter().write(json.toString());
     }
 }

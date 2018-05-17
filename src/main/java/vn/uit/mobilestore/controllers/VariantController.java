@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.URL;
+import vn.uit.mobilestore.entities.Item;
 import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.VariantModel;
@@ -20,7 +21,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(URL.VARIANT_CONTROLLER)
-public class VariantController extends AbstractController <VariantService, Variant>{
+public class VariantController extends AbstractController<VariantService, Variant> {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private final VariantService variantService;
@@ -29,13 +30,15 @@ public class VariantController extends AbstractController <VariantService, Varia
     public VariantController(VariantService variantService) {
         this.variantService = variantService;
     }
+
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
     public ResponseModel<Variant> saveVariant(@RequestBody @Valid VariantModel variantModel) {
         ResponseModel<Variant> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " saveVariant ");
             //Save variant - create method in service to validate
-            Variant variant = variantService.saveVariant(variantModel.toEntity());
+            Variant variant = variantService.saveVariant(variantModel);
+            variant = variantService.getById(variant.getVariantId());
             response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
@@ -65,14 +68,37 @@ public class VariantController extends AbstractController <VariantService, Varia
         }
     }
 
+
+    @RequestMapping(value = URL.GET_LIST_ACTION, method = RequestMethod.GET)
+    public ResponseModel<Page<Item>> getListItem(
+            @PathVariable(value = Const.PATH_ID) Integer id,
+            @RequestParam(value = Const.PATH_PAGE, defaultValue = Const.DEFAULT_PAGE) Integer page,
+            @RequestParam(value = Const.PATH_SIZE, defaultValue = Const.DEFAULT_SIZE) Integer size) {
+        ResponseModel<Page<Item>> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getListItem [page={}],[size = {}] ", page, size);
+            //List all
+            response.setData(variantService.listItemByVariantId(id, page, size));
+            return response;
+        } catch (ApplicationException ex) {
+            LOG.error(Const.LOGGING_ERROR + "getListItem: {}", ex.getMessage());
+            response.buildError(ex);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
+        }
+    }
+
+
     @RequestMapping(value = URL.UPDATE_ACTION, method = RequestMethod.POST)
     public ResponseModel<Variant> updateVariant(@PathVariable(value = Const.PATH_ID) Integer id,
-                                              @RequestBody @Valid VariantModel variantModel) {
+                                                @RequestBody @Valid VariantModel variantModel) {
         ResponseModel<Variant> response = new ResponseModel<>();
         try {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " updateItem ");
             //Update ite
             Variant variant = variantService.updateVariant(id, variantModel);
+            variant = variantService.getById(variant.getVariantId());
             response.setData(variant);
             return response;
         } catch (ApplicationException ae) {
@@ -88,20 +114,9 @@ public class VariantController extends AbstractController <VariantService, Varia
     public ResponseModel<Page<Variant>> listAll(
             @PathVariable(value = Const.PATH_SIZE) Integer size,
             @PathVariable(value = Const.PATH_PAGE) Integer page) {
-        ResponseModel<Page<Variant>> response = new ResponseModel<>();
-        try {
-            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " listAll [page={}],[size = {}] ", page, size);
-            //List all
-            response.setData(variantService.listAll(page, size));
-            return response;
-        } catch (ApplicationException ex) {
-            LOG.error(Const.LOGGING_ERROR + "listAll: {}", ex.getMessage());
-            response.buildError(ex);
-            return response;
-        } finally {
-            LOG.info(Const.LOGGING_CONTROLLER_END + " listAll ");
-        }
+        return this.listAll(size, page, LOG, variantService);
     }
+
     @RequestMapping(value = URL.DELETE_ACTION, method = RequestMethod.DELETE)
     public ResponseModel<String> deleteVariant(@PathVariable(value = Const.PATH_ID) Integer id) {
         return this.deleteOne(id, LOG, variantService);

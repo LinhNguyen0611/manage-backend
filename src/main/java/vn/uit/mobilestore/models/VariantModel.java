@@ -4,6 +4,7 @@ import vn.uit.mobilestore.entities.Model;
 import vn.uit.mobilestore.entities.Variant;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by Linh Nguyen on 4/11/2018.
@@ -16,6 +17,7 @@ public class VariantModel {
     private String color;
     private String storage;
     private Long pricesold;
+    private List<String> images;
 
     public VariantModel() {
     }
@@ -68,5 +70,13 @@ public class VariantModel {
 
     public void setPricesold(Long pricesold) {
         this.pricesold = pricesold;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }
