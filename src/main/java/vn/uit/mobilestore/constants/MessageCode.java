@@ -15,6 +15,16 @@ public enum MessageCode {
     ERROR_BRAND_ID_NOT_FOUND(4042, "Brand ID not found"),
     ERROR_VARIANT_ID_NOT_FOUND(4043, "Variant ID not found"),
     ERROR_STOCKRECEIVINGITEM_ID_NOT_FOUND(4044, "StockReceivingItem ID not found"),
+
+    // 60xx Supplier Error
+    ERROR_SUPPLIER_ID_NOT_FOUND(6000, "Supplier Id not found"),
+
+    // 61xx StockReceivingOrder Error
+    ERROR_STOCK_RECEIVING_ORDER_ID_NOT_FOUND(6100, "Stock Receiving Order Id not found"),
+
+    // 32xx StockReceivingItem Error
+    ERROR_STOCK_RECEIVING_ITEM_ID_NOT_FOUND(6100, "Stock Receiving Item Id not found"),
+
     //Other error
     ERROR_OTHER(9999, "Unexpected error");
 

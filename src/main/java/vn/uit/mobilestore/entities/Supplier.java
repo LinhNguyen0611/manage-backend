@@ -2,6 +2,7 @@ package vn.uit.mobilestore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
+import vn.uit.mobilestore.models.SupplierModel;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,15 @@ public class Supplier extends BaseEntity {
     private List<StockReceivingOrder> stockReceivingOrderList;
 
     public Supplier() {
+    }
+
+    public Supplier updateSupplier(SupplierModel supplierModel) {
+        this.name = supplierModel.getName();
+        this.address = supplierModel.getAddress();
+        this.phone = supplierModel.getPhone();
+        this.email = supplierModel.getEmail();
+        this.status = supplierModel.getStatus();
+        return this;
     }
 
     public Integer getSupplierID() {

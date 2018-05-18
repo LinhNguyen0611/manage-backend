@@ -44,5 +44,17 @@ public interface URL {
     String ROLE_CONTROLLER = "role";
 
     String UPLOAD_CONTROLLER = "upload";
+
+    String SUPPLIER_CONTROLLER = "supplier";
+
+    String STOCK_RECEIVING_ORDER = "stockReceivingOrder";
+
+    String STOCK_RECEIVING_ITEM = "stockReceivingItem";
+
+    /**
+     * The constant for Extra STOCK_RECEIVING_ORDER_CONTROLLER.
+     */
+    String STOCK_RECEIVING_ORDER_INFO = "/stockReceivingOrderInfo";
+
 }
 

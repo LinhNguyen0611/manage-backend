@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import vn.uit.mobilestore.models.StockReceivingOrderModel;
+
 @Entity
 @Where(clause = "is_active=1")
 @Table(name = "StockReceivingOrder")
@@ -74,4 +76,12 @@ public class StockReceivingOrder extends BaseEntity {
     public void setStockReceivingItemList(List<StockReceivingItem> stockReceivingItemList) {
         this.stockReceivingItemList = stockReceivingItemList;
     }
-}
+
+    // Method
+    // Update Entity
+    public StockReceivingOrder updateStockReceivingOrder(StockReceivingOrderModel stockReceivingOrderModel) {
+        this.date = stockReceivingOrderModel.getDate();
+        this.supplierID = stockReceivingOrderModel.getSupplierID();
+
+        return this;
+    }}

@@ -2,6 +2,7 @@ package vn.uit.mobilestore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
+import vn.uit.mobilestore.models.StockReceivingItemModel;
 
 import javax.persistence.*;
 import java.util.List;
@@ -82,5 +83,15 @@ public class StockReceivingItem extends BaseEntity {
 
     public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
+    }
+
+    // Method
+    // Update Entity
+    public StockReceivingItem updateStockReceivingItem(StockReceivingItemModel stockReceivingItemModel) {
+        this.priceBought = stockReceivingItemModel.getPriceBought();
+        this.quantity = stockReceivingItemModel.getQuantity();
+        this.stockReceivingOrderID = stockReceivingItemModel.getStockReceivingOrderID();
+
+        return this;
     }
 }
