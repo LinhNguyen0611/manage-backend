@@ -62,6 +62,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.inMemoryAuthentication().withUser("admin")
+        .password("admin")
+        .roles("ADMIN_USER", "STANDARD_USER");
     }
 
     @Bean
