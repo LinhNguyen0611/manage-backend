@@ -16,7 +16,7 @@ public class User extends BaseEntity {
     @Column(name="Password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_role", joinColumns
                 = @JoinColumn(name="user_id",
                 referencedColumnName = "id"),

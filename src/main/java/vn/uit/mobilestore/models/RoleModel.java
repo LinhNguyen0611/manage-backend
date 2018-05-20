@@ -18,6 +18,10 @@ public class RoleModel {
     @Column(name="description")
     private String description;
 
+    public RoleModel(){
+
+    }
+
     public Role toEntity()
     {
         Role role = new Role();

@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 
 public class UserRoleModel {
 
+    private Integer id;
+
     @NotNull
     private Integer userID;
 
@@ -38,9 +40,18 @@ public class UserRoleModel {
         this.roleID = roleID;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public UserRole toEntity()
     {
         UserRole userRole = new UserRole();
+        userRole.setId(this.id);
         userRole.setUserID(this.userID);
         userRole.setRoleID(this.roleID);
         return userRole;

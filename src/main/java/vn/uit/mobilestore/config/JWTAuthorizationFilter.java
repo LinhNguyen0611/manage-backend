@@ -1,9 +1,12 @@
 package vn.uit.mobilestore.config;
 
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -17,8 +20,11 @@ import static vn.uit.mobilestore.config.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    @Autowired
+    private UserDetailsService userDetailsService;
+    public JWTAuthorizationFilter(UserDetailsService userDetailsService, AuthenticationManager authManager) {
         super(authManager);
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -47,9 +53,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user);
 
+            logger.info("USER:::" + user);
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                return new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
             }
             return null;
         }

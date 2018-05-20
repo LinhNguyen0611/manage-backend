@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="user_role")
 public class UserRole extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -14,6 +15,16 @@ public class UserRole extends BaseEntity {
 
     @Column(name="role_id")
     private Integer roleID;
+
+    public UserRole(){
+
+    }
+
+    public UserRole(Integer id, Integer userID, Integer roleID) {
+        this.id = id;
+        this.userID = userID;
+        this.roleID = roleID;
+    }
 
     public Integer getUserID() {
         return userID;
@@ -29,6 +40,14 @@ public class UserRole extends BaseEntity {
 
     public void setRoleID(Integer roleID) {
         this.roleID = roleID;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

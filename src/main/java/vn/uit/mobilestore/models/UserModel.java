@@ -31,10 +31,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public UserModel(Integer userID, String userName, String password) {
+    public UserModel(Integer userID, String userName, String password, List<Role> roles) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
+        this.roles = roles;
     }
 
     public UserModel(){
@@ -56,5 +57,14 @@ public class UserModel {
     private String userName;
     @NotNull
     private String password;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     private List<Role> roles;
 }
