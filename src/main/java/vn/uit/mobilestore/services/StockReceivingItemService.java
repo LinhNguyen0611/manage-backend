@@ -39,7 +39,12 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
     ItemService itemService;
 
     @Autowired
-    StockReceivingItemService(ItemService itemService, StockReceivingItemRepository repository) {
+    StockReceivingOrderService stockReceivingOrderService;
+
+    @Autowired
+    StockReceivingItemService(ItemService itemService,
+                              StockReceivingItemRepository repository
+    ) {
         super(repository);
 
         this.itemService = itemService;
@@ -129,4 +134,12 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
     }
 
     // End StockReceivingOrder feature methods
+
+    // Get StockReceivingItem List by StockReceivingOrderId
+    public Page<StockReceivingItem> listStockReceivingItemByOrderId(Integer orderId, Integer page, Integer size) {
+        this.stockReceivingOrderService.getById(orderId);
+        PageRequest pageRequest = new PageRequest(page, size);
+
+        return this.stockReceivingOrderRepository.listStockReceivingItemByOrderId(orderId, pageRequest);
+    }
 }

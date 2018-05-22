@@ -103,4 +103,28 @@ public class StockReceivingItemController extends AbstractController<StockReceiv
     public ResponseModel<String> deleteStockReceivingItem(@PathVariable(value = Const.PATH_ID) Integer id) {
         return this.deleteOne(id, LOG, stockReceivingItemService);
     }
+
+    // GET StockReceivingItem List by Id
+    @RequestMapping(value = URL.GET_STOCK_RECEIVING_ITEM_BY_ORDER_ID + URL.LIST_PAGING, method = RequestMethod.GET)
+    public ResponseModel<Page<StockReceivingItem>> getStockReceivingItemList(
+            @PathVariable(value = Const.PATH_ID) Integer id,
+            @PathVariable(value = Const.PATH_SIZE) Integer size,
+            @PathVariable(value = Const.PATH_PAGE) Integer page
+    )
+    {
+        ResponseModel<Page<StockReceivingItem>> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getListStockReceivingItemByOrderId [page={}],[size = {}] ", page, size);
+            //List all
+            response.setData(stockReceivingItemService.listStockReceivingItemByOrderId(id, page, size));
+            return response;
+        } catch (ApplicationException ex) {
+            LOG.error(Const.LOGGING_ERROR + "getListStockReceivingItemByOrderId: {}", ex.getMessage());
+            response.buildError(ex);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getListStockReceivingItemByOrderId ");
+        }
+
+    }
 }

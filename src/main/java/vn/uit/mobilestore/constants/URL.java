@@ -56,5 +56,14 @@ public interface URL {
      */
     String STOCK_RECEIVING_ORDER_INFO = "/stockReceivingOrderInfo";
 
+    /**
+     * The constant for Extra STOCK_RECEIVING_ITEM_CONTROLLER.
+     */
+    String GET_STOCK_RECEIVING_ITEM_BY_ORDER_ID = "/getStockReceivingItemsByOrderId/{id}";
+
+    /**
+     * The constant for Extra ITEM_CONTROLLER
+     */
+    String GET_ITEM_BY_STOCK_RECEIVING_ITEM_ID = "/getItemsByStockReceivingItemId/{id}";
 }
 
