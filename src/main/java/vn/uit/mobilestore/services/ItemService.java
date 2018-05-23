@@ -36,6 +36,7 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     @Autowired
     ItemService(ItemRepository repository) {
         super(repository);
+
     }
 
     @Autowired
@@ -43,6 +44,9 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
 
     @Autowired
     StockReceivingItemRepository stockReceivingItemRepository;
+
+    @Autowired
+    StockReceivingItemService stockReceivingItemService;
 
     public Item updateItem(Integer id, ItemModel itemModel) {
         // Find item
@@ -106,4 +110,12 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
         return itemObject;
     }
     // End StockReceivingOrder feature methods
+
+    // Get Item List by StockReceivingItemId
+    public Page<Item> listItemByStockReceivingItemId(Integer stockReceivingItemId, Integer page, Integer size) {
+        this.stockReceivingItemService.getById(stockReceivingItemId);
+        PageRequest pageRequest = new PageRequest(page, size);
+
+        return this.stockReceivingItemRepository.listItemByStockReceivingItemId(stockReceivingItemId, pageRequest);
+    }
 }
