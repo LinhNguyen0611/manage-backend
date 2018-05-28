@@ -40,10 +40,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/users/get/**").authenticated()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers("**/get/**").permitAll()
+                .antMatchers("/item/get/**", "/model/get/**", "/brand/get/**", "/variant/get/**",
+                        "/supplier/get/**", "/stockReceivingOrder/get/**", "/stockReceivingItem/**").permitAll()
                 // Enable swagger
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**",
                         "/swagger-ui.html", "/webjars/**").permitAll()

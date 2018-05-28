@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -82,6 +83,24 @@ public class UserController {
             LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getUSer ");
             //Get item
             User user = userService.getById(id);
+            response.setData(user);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " getUser : {}", ae.getMessage());
+            response.buildError(500, ae.getErrorMessage());
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getUset ");
+        }
+    }
+
+    @RequestMapping(value = "/get/token" , method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    public ResponseModel<Object> getUserByToken() {
+        ResponseModel<Object> response = new ResponseModel<>();
+        try {
+            Object user = SecurityContextHolder.getContext().getAuthentication()
+                    .getPrincipal();
             response.setData(user);
             return response;
         } catch (ApplicationException ae) {
