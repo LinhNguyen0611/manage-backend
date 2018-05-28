@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.constants.Const;
+import vn.uit.mobilestore.entities.Role;
 import vn.uit.mobilestore.entities.User;
 import vn.uit.mobilestore.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -32,6 +33,25 @@ public class UserService extends BaseService<UserRepository, User, Integer> impl
 
         Page<User> users = findAll(pageRequest);
         return users;
+    }
+
+    public List<User> listAllCustomers()
+    {
+        List<User> users =  repository.getUserOfRole("STANDARD_USER");
+        List<User> customers = null;
+        for (User user : users)
+        {
+            List<Role> roles = user.getRoles();
+
+            for(Role role : roles)
+            {
+                if(role.getRoleName() == "STANDARD_USER")
+                {
+                    customers.add(user);
+                }
+            }
+        }
+        return customers;
     }
 
     public boolean isExist(String username)

@@ -36,6 +36,7 @@ import java.net.URLEncoder;
 import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -84,6 +85,25 @@ public class UserController {
             //Get item
             User user = userService.getById(id);
             response.setData(user);
+            return response;
+        } catch (ApplicationException ae) {
+            LOG.error(Const.LOGGING_ERROR + " getUser : {}", ae.getMessage());
+            response.buildError(500, ae.getErrorMessage());
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " getUset ");
+        }
+    }
+
+    @RequestMapping(value = "/get/customers/list" , method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    public ResponseModel<List<User>> getCustomers() {
+        ResponseModel<List<User>> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " getUSer ");
+            //Get item
+            List<User> users = userService.listAllCustomers();
+            response.setData(users);
             return response;
         } catch (ApplicationException ae) {
             LOG.error(Const.LOGGING_ERROR + " getUser : {}", ae.getMessage());
