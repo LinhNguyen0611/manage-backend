@@ -38,8 +38,8 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
     @Autowired
     ItemService itemService;
 
-    @Autowired
-    StockReceivingOrderService stockReceivingOrderService;
+//    @Autowired
+//    StockReceivingOrderService stockReceivingOrderService;
 
     @Autowired
     StockReceivingItemService(ItemService itemService,
@@ -137,7 +137,7 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
 
     // Get StockReceivingItem List by StockReceivingOrderId
     public Page<StockReceivingItem> listStockReceivingItemByOrderId(Integer orderId, Integer page, Integer size) {
-        this.stockReceivingOrderService.getById(orderId);
+        this.checkstockReceivingOrderValid(orderId);
         PageRequest pageRequest = new PageRequest(page, size);
 
         return this.stockReceivingOrderRepository.listStockReceivingItemByOrderId(orderId, pageRequest);

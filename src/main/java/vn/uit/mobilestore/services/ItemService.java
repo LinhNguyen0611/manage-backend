@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.uit.mobilestore.constants.Const;
 import vn.uit.mobilestore.constants.MessageCode;
 
 import vn.uit.mobilestore.entities.Brand;
@@ -45,8 +46,8 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     @Autowired
     StockReceivingItemRepository stockReceivingItemRepository;
 
-    @Autowired
-    StockReceivingItemService stockReceivingItemService;
+//    @Autowired
+//    StockReceivingItemService stockReceivingItemService;
 
     public Item updateItem(Integer id, ItemModel itemModel) {
         // Find item
@@ -112,8 +113,16 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     // End StockReceivingOrder feature methods
 
     // Get Item List by StockReceivingItemId
+    public StockReceivingItem GetStockReceivingItemById (Integer stockReceivingItemId) {
+        StockReceivingItem stockReceivingItem = this.stockReceivingItemRepository.findOne(stockReceivingItemId);
+        if (stockReceivingItem == null) {
+            throw new ApplicationException(MessageCode.ERROR_NOT_FOUND);
+        }
+        return stockReceivingItem;
+    }
+
     public Page<Item> listItemByStockReceivingItemId(Integer stockReceivingItemId, Integer page, Integer size) {
-        this.stockReceivingItemService.getById(stockReceivingItemId);
+        this.GetStockReceivingItemById(stockReceivingItemId);
         PageRequest pageRequest = new PageRequest(page, size);
 
         return this.stockReceivingItemRepository.listItemByStockReceivingItemId(stockReceivingItemId, pageRequest);
