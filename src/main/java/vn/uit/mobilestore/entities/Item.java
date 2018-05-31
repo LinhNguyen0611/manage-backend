@@ -50,6 +50,11 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "StockReceivingItemID", insertable = false, updatable = false)
     private StockReceivingItem stockReceivingItem;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "OrderDetailID", insertable = false, updatable = false)
+    private OrderDetail orderDetail;
+
     public Item() {
     }
 
@@ -142,5 +147,14 @@ public class Item extends BaseEntity {
 
     public void setStockReceivingItem(StockReceivingItem stockReceivingItem) {
         this.stockReceivingItem = stockReceivingItem;
+    }
+
+    // orderDetail methods
+    public OrderDetail getOrderDetail() {
+        return this.orderDetail;
+    }
+
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
     }
 }

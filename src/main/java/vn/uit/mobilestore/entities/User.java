@@ -1,5 +1,7 @@
 package vn.uit.mobilestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,6 +24,11 @@ public class User extends BaseEntity {
                 referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList;
 
     public User() {
     }
@@ -62,6 +69,15 @@ public class User extends BaseEntity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    // Order methods
+    public List<Order> getOrderList() {
+        return this.orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
 }
