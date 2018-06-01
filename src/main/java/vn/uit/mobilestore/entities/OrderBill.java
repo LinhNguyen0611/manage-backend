@@ -14,12 +14,12 @@ import vn.uit.mobilestore.enums.OrderStatus;
  */
 @Entity
 @Where(clause = "is_active=1")
-@Table (name = "Order")
-public class Order extends BaseEntity{
+@Table (name = "OrderBill")
+public class OrderBill extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "OrderID", nullable = false)
-    private Integer orderID;
+    @Column(name = "OrderBillID", nullable = false)
+    private Integer orderBillID;
 
     @Column(name = "Date", nullable = false)
     private Date date;
@@ -46,26 +46,26 @@ public class Order extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(name = "UserID", nullable = false)
-    private Integer userID;
+    @Column(name = "CustomerID", nullable = false)
+    private Integer customerID;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "UserID", insertable = false, updatable = false)
-    private User user;
+    @JoinColumn(name = "CustomerID", insertable = false, updatable = false)
+    private Customer customer;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orderBill")
     private List<OrderDetail> orderDetailList;
 
     // Contructor
-    public Order() {
+    public OrderBill() {
 
     }
 
     // Get methods
-    public Integer getOrderID() {
-        return this.orderID;
+    public Integer getOrderBillID() {
+        return this.orderBillID;
     }
 
     public Date getDate() {
@@ -100,12 +100,12 @@ public class Order extends BaseEntity{
         return this.status;
     }
 
-    public Integer getUserID() {
-        return this.userID;
+    public Integer getCustomerID() {
+        return this.customerID;
     }
 
-    public User getUser() {
-        return this.user;
+    public Customer getCustomer() {
+        return this.customer;
     }
 
     public List<OrderDetail> getOrderDetailList() {
@@ -113,8 +113,8 @@ public class Order extends BaseEntity{
     }
 
     // Set methods
-    public void setOrderID(Integer orderID) {
-        this.orderID = orderID;
+    public void setOrderBillID(Integer orderBillID) {
+        this.orderBillID = orderBillID;
     }
 
     public void setDate(Date date) {
@@ -149,12 +149,12 @@ public class Order extends BaseEntity{
         this.status = status;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserID(Integer customerID) {
+        this.customerID = customerID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {

@@ -23,13 +23,13 @@ public class OrderDetail extends BaseEntity {
     private Long price;
 
     // Order Foreign Key
-    @Column(name = "OrderID", nullable = false)
-    private Integer orderID;
+    @Column(name = "OrderBillID", nullable = false)
+    private Integer orderBillID;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "OrderID", insertable = false, updatable = false)
-    private Order order;
+    @JoinColumn(name = "OrderBillID", insertable = false, updatable = false)
+    private OrderBill orderBill;
 
     // Item ForeignKey
     @Column(name = "ItemID", nullable = false)
@@ -54,12 +54,12 @@ public class OrderDetail extends BaseEntity {
         return this.price;
     }
 
-    public Integer getOrderID() {
-        return this.orderID;
+    public Integer getOrderBillID() {
+        return this.orderBillID;
     }
 
-    public Order getOrder() {
-        return this.order;
+    public OrderBill getOrder() {
+        return this.orderBill;
     }
 
     public Integer getItemID() {
@@ -79,12 +79,12 @@ public class OrderDetail extends BaseEntity {
         this.price = price;
     }
 
-    public void setOrderID (Integer orderID) {
-        this.orderID = orderID;
+    public void setOrderBillID (Integer orderBillID) {
+        this.orderBillID = orderBillID;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrder(OrderBill orderBill) {
+        this.orderBill = orderBill;
     }
 
     public void setItemID(Integer itemID) {

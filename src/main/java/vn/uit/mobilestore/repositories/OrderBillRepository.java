@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import vn.uit.mobilestore.entities.Order;
+import vn.uit.mobilestore.entities.OrderBill;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Integer> {
+public interface OrderBillRepository extends JpaRepository<OrderBill, Integer> {
+
 }
