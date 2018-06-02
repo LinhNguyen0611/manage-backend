@@ -18,6 +18,39 @@ public class User extends BaseEntity {
     @Column(name="Password", nullable = false)
     private String password;
 
+    @Column(name="Address", nullable = true)
+    private String address;
+
+    @Column(name="Email", nullable = true)
+    private String email;
+
+    @Column(name="PhoneNumber", nullable = true)
+    private String phoneNumber;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_role", joinColumns
                 = @JoinColumn(name="user_id",
