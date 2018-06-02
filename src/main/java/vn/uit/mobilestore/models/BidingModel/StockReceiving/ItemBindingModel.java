@@ -1,5 +1,6 @@
 package vn.uit.mobilestore.models.BidingModel.StockReceiving;
 
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.entities.Item;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ public class ItemBindingModel {
     private String imei;
     private String note;
     private String serializerNumber;
-    private String status;
+    private ItemStatus status;
 
     public ItemBindingModel() {
     }
@@ -81,11 +82,11 @@ public class ItemBindingModel {
         this.serializerNumber = serializerNumber;
     }
 
-    public String getStatus() {
+    public ItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ItemStatus status) {
         this.status = status;
     }
 }

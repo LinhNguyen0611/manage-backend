@@ -2,6 +2,7 @@ package vn.uit.mobilestore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.models.ItemModel;
 
 import javax.persistence.*;
@@ -38,7 +39,7 @@ public class Item extends BaseEntity {
     private String note;
 
     @Column(name = "Status", nullable = false)
-    private String status;
+    private ItemStatus status = ItemStatus.IN_STOCK;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -65,7 +66,6 @@ public class Item extends BaseEntity {
         this.name = itemModel.getName();
         this.note = itemModel.getNote();
         this.serializerNumber = itemModel.getSerializerNumber();
-        this.status = itemModel.getStatus();
         return this;
     }
 
@@ -125,11 +125,11 @@ public class Item extends BaseEntity {
         this.note = note;
     }
 
-    public String getStatus() {
+    public ItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ItemStatus status) {
         this.status = status;
     }
 

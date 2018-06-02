@@ -59,9 +59,9 @@ public class User extends BaseEntity {
     private List<Role> roles;
 
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "user")
-//    private List<Order> orderList;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<OrderBill> orderBillList;
 
     public User() {
     }
@@ -105,12 +105,12 @@ public class User extends BaseEntity {
     }
 
     // Order methods
-//    public List<Order> getOrderList() {
-//        return this.orderList;
-//    }
-//
-//    public void setOrderList(List<Order> orderList) {
-//        this.orderList = orderList;
-//    }
+    public List<OrderBill> getOrderBillList() {
+        return orderBillList;
+    }
+
+    public void setOrderBillList(List<OrderBill> orderBillList) {
+        this.orderBillList = orderBillList;
+    }
 
 }

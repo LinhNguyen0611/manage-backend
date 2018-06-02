@@ -46,13 +46,13 @@ public class OrderBill extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(name = "CustomerID", nullable = false)
-    private Integer customerID;
+    @Column(name = "UserID", nullable = false)
+    private Integer UserID;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CustomerID", insertable = false, updatable = false)
-    private Customer customer;
+    @JoinColumn(name = "UserID", insertable = false, updatable = false)
+    private User user;
 
     @JsonIgnore
     @OneToMany(mappedBy = "orderBill")
@@ -100,14 +100,6 @@ public class OrderBill extends BaseEntity {
         return this.status;
     }
 
-    public Integer getCustomerID() {
-        return this.customerID;
-    }
-
-    public Customer getCustomer() {
-        return this.customer;
-    }
-
     public List<OrderDetail> getOrderDetailList() {
         return this.orderDetailList;
     }
@@ -149,15 +141,23 @@ public class OrderBill extends BaseEntity {
         this.status = status;
     }
 
-    public void setUserID(Integer customerID) {
-        this.customerID = customerID;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {
         this.orderDetailList = orderDetailList;
+    }
+
+    public Integer getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(Integer userID) {
+        UserID = userID;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
