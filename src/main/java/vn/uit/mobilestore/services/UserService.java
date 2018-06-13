@@ -49,12 +49,12 @@ public class UserService extends BaseService<UserRepository, User, Integer> impl
 
         LOG.info("Loading user by Name");
         LOG.info("User:" + user);
-        LOG.info("User's Role:" + user.getRoles());
         if (user == null) {
             throw new UsernameNotFoundException(String.format("The username %s doesn't exist", s));
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
+        LOG.info("User's Role:" + user.getRoles());
         user.getRoles().forEach(role -> {
             LOG.info("Role Name: " + role.getRoleName());
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));

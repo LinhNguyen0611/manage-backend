@@ -2,6 +2,7 @@ package vn.uit.mobilestore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.models.ItemModel;
 
 import javax.persistence.*;
@@ -38,7 +39,8 @@ public class Item extends BaseEntity {
     private String note;
 
     @Column(name = "Status", nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status = ItemStatus.IN_STOCK;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -50,6 +52,11 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "StockReceivingItemID", insertable = false, updatable = false)
     private StockReceivingItem stockReceivingItem;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "OrderDetailID", insertable = false, updatable = false)
+    private OrderDetail orderDetail;
+
     public Item() {
     }
 
@@ -60,7 +67,6 @@ public class Item extends BaseEntity {
         this.name = itemModel.getName();
         this.note = itemModel.getNote();
         this.serializerNumber = itemModel.getSerializerNumber();
-        this.status = itemModel.getStatus();
         return this;
     }
 
@@ -120,11 +126,11 @@ public class Item extends BaseEntity {
         this.note = note;
     }
 
-    public String getStatus() {
+    public ItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ItemStatus status) {
         this.status = status;
     }
 
@@ -142,5 +148,14 @@ public class Item extends BaseEntity {
 
     public void setStockReceivingItem(StockReceivingItem stockReceivingItem) {
         this.stockReceivingItem = stockReceivingItem;
+    }
+
+    // orderDetail methods
+    public OrderDetail getOrderDetail() {
+        return this.orderDetail;
+    }
+
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
     }
 }

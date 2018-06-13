@@ -1,5 +1,6 @@
 package vn.uit.mobilestore.models;
 
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.entities.Item;
 
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,6 @@ public class ItemModel {
     private String imei;
     private String note;
     private String serializerNumber;
-    private String status;
 
     public ItemModel() {
     }
@@ -25,7 +25,6 @@ public class ItemModel {
         item.setImei(this.imei);
         item.setNote(this.note);
         item.setSerializerNumber(this.serializerNumber);
-        item.setStatus(this.status);
         return item;
     }
 
@@ -77,11 +76,4 @@ public class ItemModel {
         this.serializerNumber = serializerNumber;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.uit.mobilestore.constants.Const;
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.constants.MessageCode;
 import vn.uit.mobilestore.entities.ImageManager;
 import vn.uit.mobilestore.entities.Item;
@@ -14,7 +15,9 @@ import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.entities.Model;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 import vn.uit.mobilestore.models.VariantModel;
+import vn.uit.mobilestore.models.BindingModel.OrderBill.OrderDetailBindingModel;
 import vn.uit.mobilestore.repositories.ImageManagerRepository;
+import vn.uit.mobilestore.repositories.ItemRepository;
 import vn.uit.mobilestore.repositories.ModelRepository;
 import vn.uit.mobilestore.repositories.VariantRepository;
 
@@ -34,14 +37,17 @@ public class VariantService extends BaseService <VariantRepository, Variant, Int
      * @param repository repository
      */
     @Autowired
-    VariantService(VariantRepository repository, ModelRepository modelRepository, ImageManagerRepository imageManagerRepository, ItemService itemService) {
+    VariantService(VariantRepository repository, ModelRepository modelRepository, ImageManagerRepository imageManagerRepository, ItemService itemService, ItemRepository itemRepository) {
         super(repository);
         this.modelRepository = modelRepository;
         this.imageManagerRepository = imageManagerRepository;
         this.itemService = itemService;
+        this.itemRepository = itemRepository;
     }
 
     private final ModelRepository modelRepository;
+
+    private final ItemRepository itemRepository;
 
     private final ImageManagerRepository imageManagerRepository;
 
@@ -132,5 +138,34 @@ public class VariantService extends BaseService <VariantRepository, Variant, Int
         ids.forEach(itemService::deleteOne);
         entity.setActive(false);
         this.saveData(entity);
+    }
+
+    // OrderBill Feature
+    private Variant checkVariantValid(Integer variantID) {
+        Variant variant = this.repository.findOne(variantID);
+        // Check if exists
+        if (variant == null) {
+            throw new ApplicationException(MessageCode.ERROR_VARIANT_ID_NOT_FOUND);
+        }
+        return variant;
+    }
+
+    // Check IN_STOCK number valid of List<OrderDetailBindingModel>
+    public void checkListInStockValid(List<OrderDetailBindingModel> orderDetailBindingModelList) {
+        for (int i = 0; i < orderDetailBindingModelList.size(); i++) {
+            this.checkInStockValid(orderDetailBindingModelList.get(i).getVariantID(), orderDetailBindingModelList.get(i).getCountNumber());
+        }
+    }
+
+    // Check IN_STOCK number valid
+    public List<Item> checkInStockValid(Integer variantID, Integer countNumber) {
+        Variant variant = this.checkVariantValid(variantID);
+        List<Item> itemList = this.itemRepository.getItemByVariantId(ItemStatus.IN_STOCK, variantID);
+
+        if (itemList.size() < countNumber) {
+            throw new ApplicationException(MessageCode.ERROR_ITEM_IN_STOCK_NOT_ENOUGH);
+        }
+
+        return itemList;
     }
 }
