@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import vn.uit.mobilestore.enums.OrderStatus;
+import vn.uit.mobilestore.models.OrderBillModel;
 
 /**
  * Created by Sinh Nguyen on 31/5/2018.
@@ -44,10 +45,10 @@ public class OrderBill extends BaseEntity {
 
     @Column(name = "Status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.PENDING;
 
     @Column(name = "UserID", nullable = false)
-    private Integer UserID;
+    private Integer userID;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -104,6 +105,14 @@ public class OrderBill extends BaseEntity {
         return this.orderDetailList;
     }
 
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     // Set methods
     public void setOrderBillID(Integer orderBillID) {
         this.orderBillID = orderBillID;
@@ -145,19 +154,27 @@ public class OrderBill extends BaseEntity {
         this.orderDetailList = orderDetailList;
     }
 
-    public Integer getUserID() {
-        return UserID;
-    }
-
     public void setUserID(Integer userID) {
-        UserID = userID;
-    }
-
-    public User getUser() {
-        return user;
+        this.userID = userID;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    // Method
+    // Update Entity
+    public OrderBill updateOrderBill(OrderBillModel orderBillModel) {
+        this.date = orderBillModel.getDate();
+        this.total = orderBillModel.getTotal();
+        this.address = orderBillModel.getAddress();
+        this.customerName = orderBillModel.getCustomerName();
+        this.phone = orderBillModel.getPhone();
+        this.email = orderBillModel.getEmail();
+        this.note = orderBillModel.getNote();
+        this.status = orderBillModel.getStatus();
+        this.userID = orderBillModel.getUserID();
+
+        return this;
     }
 }

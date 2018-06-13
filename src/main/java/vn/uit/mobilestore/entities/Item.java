@@ -39,6 +39,7 @@ public class Item extends BaseEntity {
     private String note;
 
     @Column(name = "Status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ItemStatus status = ItemStatus.IN_STOCK;
 
     @JsonIgnore

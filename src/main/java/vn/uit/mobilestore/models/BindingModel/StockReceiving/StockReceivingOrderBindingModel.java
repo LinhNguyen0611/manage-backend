@@ -1,10 +1,9 @@
-package vn.uit.mobilestore.models.BidingModel.StockReceiving;
+package vn.uit.mobilestore.models.BindingModel.StockReceiving;
 
 import java.util.Date;
 import java.util.List;
 
 import vn.uit.mobilestore.entities.StockReceivingOrder;
-import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingItemBindingModel;
 
 
 public class StockReceivingOrderBindingModel {

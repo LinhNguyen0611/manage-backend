@@ -7,12 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import vn.uit.mobilestore.constants.Const;
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.constants.MessageCode;
 
-import vn.uit.mobilestore.entities.Brand;
 import vn.uit.mobilestore.entities.Item;
 import vn.uit.mobilestore.entities.StockReceivingItem;
 import vn.uit.mobilestore.entities.Variant;
@@ -20,7 +20,7 @@ import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 
 import vn.uit.mobilestore.models.ItemModel;
-import vn.uit.mobilestore.models.BidingModel.StockReceiving.ItemBindingModel;
+import vn.uit.mobilestore.models.BindingModel.StockReceiving.ItemBindingModel;
 
 import vn.uit.mobilestore.repositories.ItemRepository;
 import vn.uit.mobilestore.repositories.StockReceivingItemRepository;
@@ -124,7 +124,37 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     public Page<Item> listItemByStockReceivingItemId(Integer stockReceivingItemId, Integer page, Integer size) {
         this.GetStockReceivingItemById(stockReceivingItemId);
         PageRequest pageRequest = new PageRequest(page, size);
+        System.out.println("Test");
+        Page<Item> itemPage = this.stockReceivingItemRepository.listItemByStockReceivingItemId(stockReceivingItemId, pageRequest);
+        System.out.println("End of test");
+        return itemPage;
+    }
 
-        return this.stockReceivingItemRepository.listItemByStockReceivingItemId(stockReceivingItemId, pageRequest);
+    // OrderBill Feature
+    // Update SOLD status
+    public Item updateSoldStatus(Integer id) {
+        Item item = this.getById(id);
+        item.setStatus(ItemStatus.SOLD);
+
+        this.updateData(item);
+        return item;
+    }
+
+    public Item updateSoldStatus(Item item) {
+        item.setStatus(ItemStatus.SOLD);
+
+        this.updateData(item);
+        return item;
+    }
+
+    // Update Items SOLD status
+    public List<Item> updateItemsSoldStatus(List<Item> itemList, Integer countNumber) {
+        List<Item> updatedItemList = new ArrayList<>();
+        for (int i = 0; i < countNumber; i++) {
+            Item item = this.updateSoldStatus(itemList.get(i));
+
+            updatedItemList.add(item);
+        }
+        return updatedItemList;
     }
 }

@@ -15,7 +15,7 @@ import vn.uit.mobilestore.entities.StockReceivingOrder;
 
 import vn.uit.mobilestore.exceptions.ApplicationException;
 
-import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingOrderBindingModel;
+import vn.uit.mobilestore.models.BindingModel.StockReceiving.StockReceivingOrderBindingModel;
 import vn.uit.mobilestore.models.StockReceivingOrderModel;
 
 import vn.uit.mobilestore.responses.ResponseModel;

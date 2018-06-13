@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import vn.uit.mobilestore.models.OrderDetailModel;
+
 /**
  * Created by Sinh Nguyen on 31/5/2018.
  */
@@ -35,8 +37,8 @@ public class OrderDetail extends BaseEntity {
     @Column(name = "ItemID", nullable = false)
     private Integer itemID;
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "ItemID", insertable = false, updatable = false)
     private Item item;
 
@@ -58,7 +60,7 @@ public class OrderDetail extends BaseEntity {
         return this.orderBillID;
     }
 
-    public OrderBill getOrder() {
+    public OrderBill getOrderBill() {
         return this.orderBill;
     }
 
@@ -83,7 +85,7 @@ public class OrderDetail extends BaseEntity {
         this.orderBillID = orderBillID;
     }
 
-    public void setOrder(OrderBill orderBill) {
+    public void setOrderBill(OrderBill orderBill) {
         this.orderBill = orderBill;
     }
 
@@ -95,4 +97,24 @@ public class OrderDetail extends BaseEntity {
         this.item = item;
     }
 
+    // Method
+    // Update Entity
+    public OrderDetail updateOrderDetail(OrderDetailModel orderDetailModel) {
+        this.price = orderDetailModel.getPrice();
+        this.orderBillID = orderDetailModel.getOrderBillID();
+        this.itemID = orderDetailModel.getItemID();
+
+        return this;
+    }
+
+    // Static methods
+    public static OrderDetail CreateNewOrderDetail(Item item, OrderBill orderBill, Long price) {
+        OrderDetail orderDetail = new OrderDetail();
+
+        orderDetail.setPrice(price);
+        orderDetail.setItemID(item.getItemId());
+        orderDetail.setOrderBillID(orderBill.getOrderBillID());
+
+        return  orderDetail;
+    }
 }

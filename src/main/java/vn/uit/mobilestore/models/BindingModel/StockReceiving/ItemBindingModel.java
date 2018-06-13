@@ -1,4 +1,4 @@
-package vn.uit.mobilestore.models.BidingModel.StockReceiving;
+package vn.uit.mobilestore.models.BindingModel.StockReceiving;
 
 import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.entities.Item;
