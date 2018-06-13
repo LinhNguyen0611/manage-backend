@@ -79,5 +79,10 @@ public interface URL {
      * The constant for Extra ORDER_DETAIL_CONTROLLER.
      */
     String GET_BY_ORDER_BILL_ID = "/getByOrderBillId/{id}";
+
+    /**
+     * The constant for Extra ORDER_DETAIL_CONTROLLER.
+     */
+    String CHECK_ORDER_DETAIL_VALID = "/checkOrderDetailValid";
 }
 

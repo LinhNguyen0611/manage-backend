@@ -15,12 +15,14 @@ import vn.uit.mobilestore.entities.OrderDetail;
 import vn.uit.mobilestore.entities.Item;
 
 import vn.uit.mobilestore.exceptions.ApplicationException;
+import vn.uit.mobilestore.models.BindingModel.OrderBill.OrderDetailBindingModel;
 import vn.uit.mobilestore.responses.ResponseModel;
 
 import vn.uit.mobilestore.models.OrderDetailModel;
 
 import vn.uit.mobilestore.services.OrderDetailService;
 import vn.uit.mobilestore.services.ItemService;
+import vn.uit.mobilestore.services.VariantService;
 
 import java.util.List;
 
@@ -33,11 +35,14 @@ public class OrderDetailController extends AbstractController<OrderDetailService
 
     private final ItemService itemService;
 
+    private final VariantService variantService;
+
     // OrderBillController Constructor
     @Autowired
-    public OrderDetailController(OrderDetailService orderDetailService, ItemService itemService) {
+    public OrderDetailController(OrderDetailService orderDetailService, ItemService itemService, VariantService variantService) {
         this.orderDetailService = orderDetailService;
         this.itemService = itemService;
+        this.variantService = variantService;
     }
 
     // GET OrderDetail
@@ -119,6 +124,7 @@ public class OrderDetailController extends AbstractController<OrderDetailService
     }
 
     // Extra APIs
+    // Get OrderDetail List by OrderBillID
     @RequestMapping(value = URL.GET_BY_ORDER_BILL_ID, method = RequestMethod.GET)
     public ResponseModel<List<OrderDetail>> getByOrderBillId(@PathVariable(value = Const.PATH_ID) Integer orderBillId) {
         ResponseModel<List<OrderDetail>> response = new ResponseModel<>();
@@ -135,6 +141,29 @@ public class OrderDetailController extends AbstractController<OrderDetailService
             return response;
         } finally {
             LOG.info(Const.LOGGING_CONTROLLER_END + " getByOrderBillId ");
+        }
+    }
+
+    // Check orderDetail valid countNumber
+    @RequestMapping(value = URL.CHECK_ORDER_DETAIL_VALID, method = RequestMethod.POST)
+    public ResponseModel<Boolean> checkOrderDetailValid(@RequestBody @Valid OrderDetailBindingModel orderDetailBindingModel) {
+        ResponseModel<Boolean> response = new ResponseModel<>();
+        try {
+            LOG.info(Const.LOGGING_CONTROLLER_BEGIN + " checkOrderDetailValid ");
+            // Check VariantID and countNumber valid
+            this.variantService.checkInStockValid(
+                    orderDetailBindingModel.getVariantID(),
+                    orderDetailBindingModel.getCountNumber()
+            );
+
+            response.setData(true);
+            return response;
+        } catch (ApplicationException applicationException) {
+            LOG.error(Const.LOGGING_ERROR + " checkOrderDetailValid : {}", applicationException.getMessage());
+            response.buildError(applicationException);
+            return response;
+        } finally {
+            LOG.info(Const.LOGGING_CONTROLLER_END + " checkOrderDetailValid ");
         }
     }
 
