@@ -15,13 +15,11 @@ import vn.uit.mobilestore.entities.StockReceivingOrder;
 
 import vn.uit.mobilestore.exceptions.ApplicationException;
 
-import vn.uit.mobilestore.models.BidingModel.StockReceiving.StockReceivingItemBindingModel;
+import vn.uit.mobilestore.models.BindingModel.StockReceiving.StockReceivingItemBindingModel;
 import vn.uit.mobilestore.models.StockReceivingItemModel;
 
 import vn.uit.mobilestore.repositories.StockReceivingItemRepository;
 import vn.uit.mobilestore.repositories.StockReceivingOrderRepository;
-
-import vn.uit.mobilestore.services.ItemService;
 
 @Service
 public class StockReceivingItemService extends BaseService<StockReceivingItemRepository, StockReceivingItem, Integer> {
@@ -38,8 +36,8 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
     @Autowired
     ItemService itemService;
 
-    @Autowired
-    StockReceivingOrderService stockReceivingOrderService;
+//    @Autowired
+//    StockReceivingOrderService stockReceivingOrderService;
 
     @Autowired
     StockReceivingItemService(ItemService itemService,
@@ -137,7 +135,7 @@ public class StockReceivingItemService extends BaseService<StockReceivingItemRep
 
     // Get StockReceivingItem List by StockReceivingOrderId
     public Page<StockReceivingItem> listStockReceivingItemByOrderId(Integer orderId, Integer page, Integer size) {
-        this.stockReceivingOrderService.getById(orderId);
+        this.checkstockReceivingOrderValid(orderId);
         PageRequest pageRequest = new PageRequest(page, size);
 
         return this.stockReceivingOrderRepository.listStockReceivingItemByOrderId(orderId, pageRequest);

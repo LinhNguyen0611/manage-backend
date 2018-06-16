@@ -7,11 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import vn.uit.mobilestore.constants.ItemStatus;
 import vn.uit.mobilestore.constants.MessageCode;
 
-import vn.uit.mobilestore.entities.Brand;
 import vn.uit.mobilestore.entities.Item;
 import vn.uit.mobilestore.entities.StockReceivingItem;
 import vn.uit.mobilestore.entities.Variant;
@@ -19,7 +20,7 @@ import vn.uit.mobilestore.entities.Variant;
 import vn.uit.mobilestore.exceptions.ApplicationException;
 
 import vn.uit.mobilestore.models.ItemModel;
-import vn.uit.mobilestore.models.BidingModel.StockReceiving.ItemBindingModel;
+import vn.uit.mobilestore.models.BindingModel.StockReceiving.ItemBindingModel;
 
 import vn.uit.mobilestore.repositories.ItemRepository;
 import vn.uit.mobilestore.repositories.StockReceivingItemRepository;
@@ -45,8 +46,8 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     @Autowired
     StockReceivingItemRepository stockReceivingItemRepository;
 
-    @Autowired
-    StockReceivingItemService stockReceivingItemService;
+//    @Autowired
+//    StockReceivingItemService stockReceivingItemService;
 
     public Item updateItem(Integer id, ItemModel itemModel) {
         // Find item
@@ -112,10 +113,48 @@ public class ItemService extends BaseService<ItemRepository, Item, Integer> {
     // End StockReceivingOrder feature methods
 
     // Get Item List by StockReceivingItemId
-    public Page<Item> listItemByStockReceivingItemId(Integer stockReceivingItemId, Integer page, Integer size) {
-        this.stockReceivingItemService.getById(stockReceivingItemId);
-        PageRequest pageRequest = new PageRequest(page, size);
+    public StockReceivingItem GetStockReceivingItemById (Integer stockReceivingItemId) {
+        StockReceivingItem stockReceivingItem = this.stockReceivingItemRepository.findOne(stockReceivingItemId);
+        if (stockReceivingItem == null) {
+            throw new ApplicationException(MessageCode.ERROR_NOT_FOUND);
+        }
+        return stockReceivingItem;
+    }
 
-        return this.stockReceivingItemRepository.listItemByStockReceivingItemId(stockReceivingItemId, pageRequest);
+    public Page<Item> listItemByStockReceivingItemId(Integer stockReceivingItemId, Integer page, Integer size) {
+        this.GetStockReceivingItemById(stockReceivingItemId);
+        PageRequest pageRequest = new PageRequest(page, size);
+        System.out.println("Test");
+        Page<Item> itemPage = this.stockReceivingItemRepository.listItemByStockReceivingItemId(stockReceivingItemId, pageRequest);
+        System.out.println("End of test");
+        return itemPage;
+    }
+
+    // OrderBill Feature
+    // Update SOLD status
+    public Item updateSoldStatus(Integer id) {
+        Item item = this.getById(id);
+        item.setStatus(ItemStatus.SOLD);
+
+        this.updateData(item);
+        return item;
+    }
+
+    public Item updateSoldStatus(Item item) {
+        item.setStatus(ItemStatus.SOLD);
+
+        this.updateData(item);
+        return item;
+    }
+
+    // Update Items SOLD status
+    public List<Item> updateItemsSoldStatus(List<Item> itemList, Integer countNumber) {
+        List<Item> updatedItemList = new ArrayList<>();
+        for (int i = 0; i < countNumber; i++) {
+            Item item = this.updateSoldStatus(itemList.get(i));
+
+            updatedItemList.add(item);
+        }
+        return updatedItemList;
     }
 }

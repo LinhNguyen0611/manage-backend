@@ -22,8 +22,18 @@ public enum MessageCode {
     // 61xx StockReceivingOrder Error
     ERROR_STOCK_RECEIVING_ORDER_ID_NOT_FOUND(6100, "Stock Receiving Order Id not found"),
 
-    // 32xx StockReceivingItem Error
-    ERROR_STOCK_RECEIVING_ITEM_ID_NOT_FOUND(6100, "Stock Receiving Item Id not found"),
+    // 62xx StockReceivingItem Error
+    ERROR_STOCK_RECEIVING_ITEM_ID_NOT_FOUND(6200, "Stock Receiving Item Id not found"),
+
+    // 63xx User Error
+    ERROR_USER_ID_NOT_FOUND(6300, "User Id not found"),
+
+    // 64xx User Error
+    ERROR_ORDER_BILL_ID_NOT_FOUND(6400, "Order Bill Id not found"),
+
+    // 65xx Item Error
+    ERROR_ITEM_ID_NOT_FOUND(6500, "Item Id not found"),
+    ERROR_ITEM_IN_STOCK_NOT_ENOUGH(6501, "Item in stock is not enough"),
 
     //Other error
     ERROR_OTHER(9999, "Unexpected error");
