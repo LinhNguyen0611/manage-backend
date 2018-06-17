@@ -44,7 +44,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers("/item/get/**", "/model/get/**", "/brand/get/**", "/variant/get/**",
                 "/supplier/get/**", "/stockReceivingOrder/get/**", "/stockReceivingItem/get/**").permitAll()
-                .antMatchers("/item/list/**", "/model/list/**", "/brand/list/**", "/variant/list/**",
+                .antMatchers("/item/list/**", "/model/list/**", "/brand/list/**", "/brand/list-by-id/**" , "/variant/list/**",
                         "/supplier/list/**", "/stockReceivingOrder/list/**", "/stockReceivingItem/list/**").permitAll()
                 // Enable swagger
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**",
