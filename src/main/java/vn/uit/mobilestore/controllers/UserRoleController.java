@@ -34,7 +34,6 @@ public class UserRoleController {
     public UserRoleController(UserRoleService userRoleService) {this.userRoleService = userRoleService;}
 
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseModel<UserRole> setUserRole(@RequestBody @Valid UserRoleModel userRoleModel){
         ResponseModel<UserRole> response = new ResponseModel<>();
         try{
@@ -59,7 +58,6 @@ public class UserRoleController {
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseModel<List<UserRole>> getRoles()
     {
         LOG.info("STARTING CONTROLLER");
