@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @RequestMapping(value = URL.GET_ACTION , method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseModel<User> getUser(@PathVariable(Const.PATH_ID) Integer id) {
         ResponseModel<User> response = new ResponseModel<>();
         try {
@@ -96,7 +96,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/get/customers/list" , method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseModel<List<User>> getCustomers() {
         ResponseModel<List<User>> response = new ResponseModel<>();
         try {
@@ -115,7 +115,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/get/token" , method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseModel<Object> getUserByToken() {
         ResponseModel<Object> response = new ResponseModel<>();
         try {
@@ -133,7 +133,7 @@ public class UserController {
     }
 
     @RequestMapping(value = URL.LIST_PAGING, method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseModel<Page<User>> listAll(
             @PathVariable(Const.PATH_SIZE) Integer size,
             @PathVariable(Const.PATH_PAGE) Integer page) {
