@@ -34,7 +34,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = URL.ADD_ACTION, method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    //@PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseModel<Role> saveItem(@RequestBody @Valid RoleModel roleModel) {
         ResponseModel<Role> response = new ResponseModel<>();
         try {
@@ -58,7 +58,7 @@ public class RoleController {
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
+    //@PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseModel<List<Role>> getRoles()
     {
         LOG.info("STARTING CONTROLLER");
