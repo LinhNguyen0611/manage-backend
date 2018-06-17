@@ -46,7 +46,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 "/supplier/get/**", "/stockReceivingOrder/get/**", "/stockReceivingItem/get/**",
                             "/stockReceivingItem/getStockReceivingItemsByOrderId/**").permitAll()
                 .antMatchers("/item/list/**", "/model/list/**", "/brand/list/**", "/brand/list-by-id/**" , "/variant/list/**",
-                        "/supplier/list/**", "/stockReceivingOrder/list/**", "/stockReceivingItem/list/**", "/item/getItemsByStockReceivingItemId/**"
+                        "/supplier/list/**", "/stockReceivingOrder/list/**", "/stockReceivingItem/list/**", "/item/getItemsByStockReceivingItemId/**",
                             "/model/list-by-id/**","/orderDetail/getByOrderBillId/**", "/variant/list-by-id/**").permitAll()
                 // Enable swagger
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**",
