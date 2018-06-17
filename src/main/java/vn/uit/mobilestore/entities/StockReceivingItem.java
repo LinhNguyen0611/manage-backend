@@ -30,7 +30,7 @@ public class StockReceivingItem extends BaseEntity {
     @JoinColumn(name = "StockReceivingOrderID", insertable = false, updatable = false)
     private StockReceivingOrder stockReceivingOrder;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "stockReceivingItem")
     private List<Item> itemList;
 
